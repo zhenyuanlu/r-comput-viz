@@ -1,0 +1,15 @@
+# Summary
+
+[Home](./test.md)
+[FAQ and disclamer](./test.md)
+- [Basic of R](./test.md)
+- [R functions and the grammar of visualization](./test.md)
+- [Data Visualization Concepts](./test.md)
+- [Basic data visualization in R](./test.md)
+- [Data transformation with dplyr](./test.md)
+- [Data wrangling with tibbles, readr and tidyr](./test.md)
+- [Data wrangling with stringr, forcats(optional)](./test.md)
+- [Visualizing relational data](./test.md)
+- [Introduction to Shiny](./test.md)
+- [Exploratory data analysis and more data visualization](./test.md)
+- [Additional R Workshop](./test.md)
