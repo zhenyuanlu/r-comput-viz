@@ -65,7 +65,7 @@ IE6600 covers basic of the R, and R Shiny for data preprocessing, and visualizat
 <!-- =============================== Topic 2 ================================ -->
     <tr>
       <td rowspan="3"><a href="t1_basicR.md">R functions and the grammar of visualization</a></td>
-      <td rowspan="3"><a href="https://zhenyuanlu.com/slides/t03Grammar.pdf">📑</a></td>
+      <td rowspan="3"><a href="https://zhenyuanlu.com/slides/t03RGrammar.pdf">📑</a></td>
       <td rowspan="1">
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/workflow-basics.html">Workflow</a>
       </td>

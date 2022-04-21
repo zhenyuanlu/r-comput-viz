@@ -117,6 +117,9 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+                        <a href="https://github.com/zhenyuanlu/r-comput-viz" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
 
                     </div>
                 </div>
@@ -197,7 +200,7 @@
 <!-- =============================== Topic 2 ================================ -->
     <tr>
       <td rowspan="3"><a href="t1_basicR.html">R functions and the grammar of visualization</a></td>
-      <td rowspan="3"><a href="https://zhenyuanlu.com/slides/t03Grammar.pdf">📑</a></td>
+      <td rowspan="3"><a href="https://zhenyuanlu.com/slides/t03RGrammar.pdf">📑</a></td>
       <td rowspan="1">
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/workflow-basics.html">Workflow</a>
       </td>
@@ -304,22 +307,6 @@
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
