@@ -8,3 +8,4 @@ title = "Computation and Visualization in R"
 [output.html]
 git-repository-url = "https://github.com/zhenyuanlu/r-comput-viz"
 git-repository-icon = "fa-github"
+mathjax-support = true
