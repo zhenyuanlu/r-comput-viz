@@ -31,6 +31,8 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -145,7 +147,79 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="coming-soon"><a class="header" href="#coming-soon">Coming soon...</a></h1>
+                        <h1 id="faq-in-ie6600"><a class="header" href="#faq-in-ie6600">FAQ in IE6600</a></h1>
+<p>The following are the solutions/answers covered most of the questions in the class:</p>
+<h2 id="r-markdown-issues"><a class="header" href="#r-markdown-issues">R Markdown Issues</a></h2>
+<h3 id="1-errors-with-installation-of-tinytexmiktex"><a class="header" href="#1-errors-with-installation-of-tinytexmiktex">1. Error(s) with installation of tinytex/MikTex</a></h3>
+<blockquote>
+<p><strong>If you have to use MikTex:</strong></p>
+</blockquote>
+<p>You can install the dev version of the R package tinytex:</p>
+<pre><code class="language-r">devtools::install_github('yihui/tinytex')
+</code></pre>
+<p>If you haven't installed MiKTeX, remember to check the option Yes in Install missing packages when installing it:</p>
+<p align="center">
+  <img src="img/faq/1.jpg"/>
+</p>
+<p>If you have already installed MiKTeX, go to the Start menu, find the menu &quot;MiKTeX Console&quot;, and choose the option Always install missing packages on-the-fly:</p>
+<p align="center">
+  <img src="img/faq/2.jpg"/>
+</p>
+<blockquote>
+<p><strong>If you don’t have to use MiKTeX:</strong></p>
+</blockquote>
+<p>Things will be a little easier. Uninstall MiKTeX if you have installed it (or temporarily rename its installation folder if you don't want to get rid of it completely), then in R:</p>
+<pre><code class="language-r">install.packages('tinytex')
+tinytex::install_tinytex()
+</code></pre>
+<p>This will install TinyTeX (a custom version of TeX Live), which can also build LaTeX documents to PDF on Windows (more info, see <a href="https://yihui.name/tinytex/">https://yihui.name/tinytex/</a>). Restart RStudio/R when the installation is done (it may take 3-5 minutes).</p>
+<p>Reference: @Yihui, <a href="https://github.com/rstudio/rmarkdown/issues/1285#issuecomment-374340175">https://github.com/rstudio/rmarkdown/issues/1285#issuecomment-374340175</a></p>
+<h3 id="2-if-above-doesnt-work"><a class="header" href="#2-if-above-doesnt-work">2. If above doesn't work</a></h3>
+<p>If you still have issues with LaTex/tinytex, please download the following tools directly:</p>
+<ul>
+<li>For Mac user: MacTex 2022 - <a href="http://tug.org/mactex/">http://tug.org/mactex/</a></li>
+<li>For Win user: MiKTeX - <a href="https://miktex.org/download">https://miktex.org/download</a></li>
+</ul>
+<h3 id="3-if-you-have-the-pandoc-error-137"><a class="header" href="#3-if-you-have-the-pandoc-error-137">3. If you have the pandoc error 137</a></h3>
+<pre><code>Error: pandoc document conversion failed with error 137
+</code></pre>
+<p>You may have two alternative ways to deal with it (Recommended the first one):</p>
+<ul>
+<li>Knit your .rmd to .html and then print/save it as .pdf.</li>
+<li>Please check the post: <a href="https://stackoverflow.com/questions/51410248/r-markdown-to-html-via-knitr-pandoc-error-137?rq=1">https://stackoverflow.com/questions/51410248/r-markdown-to-html-via-knitr-pandoc-error-137?rq=1</a></li>
+</ul>
+<hr />
+<h2 id="r-language"><a class="header" href="#r-language">R Language</a></h2>
+<h3 id="1-error-in-loading-packages-in-rstudio-see-figure"><a class="header" href="#1-error-in-loading-packages-in-rstudio-see-figure">1.	Error in loading packages in Rstudio (See figure)</a></h3>
+<p aligh="center">
+  <img src="img/faq/3.jpg">
+</p>
+<p>You have successfully loaded the ggplot2. The issue is on the package of colorspace.</p>
+<p>Please do the following:</p>
+<pre><code class="language-r">remove.packages(c(&quot;ggplot2&quot;, &quot;colorspace&quot;))
+install.packages('ggplot2', dependencies = TRUE)
+install.packages('colorspace', dependencies = TRUE)
+</code></pre>
+<h3 id="2-when-i-use-the-ischaracterx-or-isnumericx-to-judge-the-vector-x-it-doesnt-show-all-result-of-elements"><a class="header" href="#2-when-i-use-the-ischaracterx-or-isnumericx-to-judge-the-vector-x-it-doesnt-show-all-result-of-elements">2.	When I use the is.character(x) or is.numeric(x) to judge the vector x, it doesn't show all result of elements.</a></h3>
+<p>When you assign variables into one vector, then all the elements in the vector will be treated as the same data type. But if you want to check each of the elements' data type, You may want to use the following function: <em>sapply()</em> or <em>lapply()</em></p>
+<pre><code class="language-r">temp&lt;-c(1,2,&quot;a&quot;)
+sapply(temp, is.character)
+</code></pre>
+<h3 id="3-what-is-coercion-rule-in-r"><a class="header" href="#3-what-is-coercion-rule-in-r">3.	What is coercion rule in R?</a></h3>
+<p>R follows the coercion rule, which means if a vector contains multiple data types it will convert a logical to a number and number to a character.</p>
+<h3 id="4-i-cant-understand-the-data-type-of-factor-possesses-usage-in-r-language-could-you-give-me-some-examples"><a class="header" href="#4-i-cant-understand-the-data-type-of-factor-possesses-usage-in-r-language-could-you-give-me-some-examples">4.	I can't understand the data type of factor possesses usage in R language. Could you give me some examples?</a></h3>
+<p>Try the following in R:</p>
+<pre><code class="language-r">ggplot(mpg)+geom_bar(aes(drv))
+ggplot(mpg)+geom_bar(aes(factor(drv, levels=c(&quot;r&quot;,4, &quot;f&quot;))))
+</code></pre>
+<h3 id="5-changing-sizecolor-by-using-size01-or-colorblue-but-this-kind-of-coding-will-make-every-point-the-same"><a class="header" href="#5-changing-sizecolor-by-using-size01-or-colorblue-but-this-kind-of-coding-will-make-every-point-the-same">5.	Changing size/color by using size=0.1 or color=&quot;blue&quot; but this kind of coding will make every point the same,</a></h3>
+<p>When syntax size= and color= are inside of aes()which allows you to assign variables to different sizes or colors. When they are outside of aes(), which allows you to assign constant values to size or color, 1, or &quot;blue&quot;, etc.
+ </p>
+<h2 id="r-with-tableau"><a class="header" href="#r-with-tableau">R with Tableau</a></h2>
+<ol>
+<li>How to connect R to Tableau?
+please check out the following tutorial on Youtube: <a href="https://www.youtube.com/watch?v=iReaNA4D2os&amp;list=PLkqc8xRb_lIDSWEEtX9wJsngZyMPb6np3&amp;index=7">https://www.youtube.com/watch?v=iReaNA4D2os&amp;list=PLkqc8xRb_lIDSWEEtX9wJsngZyMPb6np3&amp;index=7</a></li>
+</ol>
 
                     </main>
 
