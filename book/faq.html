@@ -159,11 +159,11 @@
 </code></pre>
 <p>If you haven't installed MiKTeX, remember to check the option Yes in Install missing packages when installing it:</p>
 <p align="center">
-  <img src="img/faq/1.jpg"/>
+  <img src="images/faq/1.jpg"/>
 </p>
 <p>If you have already installed MiKTeX, go to the Start menu, find the menu &quot;MiKTeX Console&quot;, and choose the option Always install missing packages on-the-fly:</p>
 <p align="center">
-  <img src="img/faq/2.jpg"/>
+  <img src="images/faq/2.jpg" />
 </p>
 <blockquote>
 <p><strong>If you don’t have to use MiKTeX:</strong></p>
@@ -192,7 +192,7 @@ tinytex::install_tinytex()
 <h2 id="r-language"><a class="header" href="#r-language">R Language</a></h2>
 <h3 id="1-error-in-loading-packages-in-rstudio-see-figure"><a class="header" href="#1-error-in-loading-packages-in-rstudio-see-figure">1.	Error in loading packages in Rstudio (See figure)</a></h3>
 <p aligh="center">
-  <img src="img/faq/3.jpg">
+  <img src="images/faq/3.jpg">
 </p>
 <p>You have successfully loaded the ggplot2. The issue is on the package of colorspace.</p>
 <p>Please do the following:</p>
@@ -201,7 +201,7 @@ install.packages('ggplot2', dependencies = TRUE)
 install.packages('colorspace', dependencies = TRUE)
 </code></pre>
 <h3 id="2-when-i-use-the-ischaracterx-or-isnumericx-to-judge-the-vector-x-it-doesnt-show-all-result-of-elements"><a class="header" href="#2-when-i-use-the-ischaracterx-or-isnumericx-to-judge-the-vector-x-it-doesnt-show-all-result-of-elements">2.	When I use the is.character(x) or is.numeric(x) to judge the vector x, it doesn't show all result of elements.</a></h3>
-<p>When you assign variables into one vector, then all the elements in the vector will be treated as the same data type. But if you want to check each of the elements' data type, You may want to use the following function: <em>sapply()</em> or <em>lapply()</em></p>
+<p>When you assign variables into one vector, then all the elements in the vector will be treated as the same data type. But if you want to check each of the elements' data type, You may want to use the following function: <code>sapply()</code> or <code>lapply()</code></p>
 <pre><code class="language-r">temp&lt;-c(1,2,&quot;a&quot;)
 sapply(temp, is.character)
 </code></pre>
@@ -257,6 +257,11 @@ please check out the following tutorial on Youtube: <a href="https://www.youtube
             window.playground_copyable = true;
         </script>
 
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
 
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>

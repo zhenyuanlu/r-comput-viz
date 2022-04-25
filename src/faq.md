@@ -16,13 +16,13 @@ devtools::install_github('yihui/tinytex')
 If you haven't installed MiKTeX, remember to check the option Yes in Install missing packages when installing it:
 
 <p align="center">
-  <img src="img/faq/1.jpg"/>
+  <img src="images/faq/1.jpg"/>
 </p>
 
 If you have already installed MiKTeX, go to the Start menu, find the menu "MiKTeX Console", and choose the option Always install missing packages on-the-fly:
 
 <p align="center">
-  <img src="img/faq/2.jpg"/>
+  <img src="images/faq/2.jpg" />
 </p>
 
 > **If you don’t have to use MiKTeX:**
@@ -65,7 +65,7 @@ You may have two alternative ways to deal with it (Recommended the first one):
 ### 1.	Error in loading packages in Rstudio (See figure)
 
 <p aligh="center">
-  <img src="img/faq/3.jpg">
+  <img src="images/faq/3.jpg">
 </p>
 
 You have successfully loaded the ggplot2. The issue is on the package of colorspace.
@@ -80,7 +80,7 @@ install.packages('colorspace', dependencies = TRUE)
 
 
 ### 2.	When I use the is.character(x) or is.numeric(x) to judge the vector x, it doesn't show all result of elements.
-When you assign variables into one vector, then all the elements in the vector will be treated as the same data type. But if you want to check each of the elements' data type, You may want to use the following function: *sapply()* or *lapply()*
+When you assign variables into one vector, then all the elements in the vector will be treated as the same data type. But if you want to check each of the elements' data type, You may want to use the following function: `sapply()` or `lapply()`
 
 
 ```r
