@@ -1,7 +1,7 @@
 # Introduction
 
 **This is the course notes** for IE6600 Computation and Visualization course, which has covered the following semesters:
-
+Instructor/Author: Zhenyuan Lu
 
 
 <img src='https://raw.githubusercontent.com/rstudio/rmarkdown/main/man/figures/logo.png' align="right" height="55.5"/>
