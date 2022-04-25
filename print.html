@@ -313,11 +313,11 @@
 </code></pre>
 <p>If you haven't installed MiKTeX, remember to check the option Yes in Install missing packages when installing it:</p>
 <p align="center">
-  <img src="img/faq/1.jpg"/>
+  <img src="images/faq/1.jpg"/>
 </p>
 <p>If you have already installed MiKTeX, go to the Start menu, find the menu &quot;MiKTeX Console&quot;, and choose the option Always install missing packages on-the-fly:</p>
 <p align="center">
-  <img src="img/faq/2.jpg"/>
+  <img src="images/faq/2.jpg" />
 </p>
 <blockquote>
 <p><strong>If you don’t have to use MiKTeX:</strong></p>
@@ -346,7 +346,7 @@ tinytex::install_tinytex()
 <h2 id="r-language"><a class="header" href="#r-language">R Language</a></h2>
 <h3 id="1-error-in-loading-packages-in-rstudio-see-figure"><a class="header" href="#1-error-in-loading-packages-in-rstudio-see-figure">1.	Error in loading packages in Rstudio (See figure)</a></h3>
 <p aligh="center">
-  <img src="img/faq/3.jpg">
+  <img src="images/faq/3.jpg">
 </p>
 <p>You have successfully loaded the ggplot2. The issue is on the package of colorspace.</p>
 <p>Please do the following:</p>
@@ -355,7 +355,7 @@ install.packages('ggplot2', dependencies = TRUE)
 install.packages('colorspace', dependencies = TRUE)
 </code></pre>
 <h3 id="2-when-i-use-the-ischaracterx-or-isnumericx-to-judge-the-vector-x-it-doesnt-show-all-result-of-elements"><a class="header" href="#2-when-i-use-the-ischaracterx-or-isnumericx-to-judge-the-vector-x-it-doesnt-show-all-result-of-elements">2.	When I use the is.character(x) or is.numeric(x) to judge the vector x, it doesn't show all result of elements.</a></h3>
-<p>When you assign variables into one vector, then all the elements in the vector will be treated as the same data type. But if you want to check each of the elements' data type, You may want to use the following function: <em>sapply()</em> or <em>lapply()</em></p>
+<p>When you assign variables into one vector, then all the elements in the vector will be treated as the same data type. But if you want to check each of the elements' data type, You may want to use the following function: <code>sapply()</code> or <code>lapply()</code></p>
 <pre><code class="language-r">temp&lt;-c(1,2,&quot;a&quot;)
 sapply(temp, is.character)
 </code></pre>
@@ -375,6 +375,131 @@ ggplot(mpg)+geom_bar(aes(factor(drv, levels=c(&quot;r&quot;,4, &quot;f&quot;))))
 please check out the following tutorial on Youtube: <a href="https://www.youtube.com/watch?v=iReaNA4D2os&amp;list=PLkqc8xRb_lIDSWEEtX9wJsngZyMPb6np3&amp;index=7">https://www.youtube.com/watch?v=iReaNA4D2os&amp;list=PLkqc8xRb_lIDSWEEtX9wJsngZyMPb6np3&amp;index=7</a></li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-of-r"><a class="header" href="#basic-of-r">Basic of R</a></h1>
+<p align="center">
+  <img src="https://cran.r-project.org/Rlogo.svg" style="width: 15%"/>
+  <img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" style="width: 30%"/>
+  <!-- <img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/shiny.png" style="width: 10%"/> -->
+</p>
+<h2 id="installation-of-r"><a class="header" href="#installation-of-r">Installation of R</a></h2>
+<p>After you click the following link: <a href="https://cran.r-project.org/">https://cran.r-project.org/</a></p>
+<p>You will see as the following figure. Click the proper link and start the installation</p>
+<p align="center">
+  <img src="images/t1/1.png" style="width: 100%"/>
+</p>
+<p><strong>For Mac User:</strong>
+Make sure you are downloading the correct version, otherwise it will cause errors</p>
+<h2 id="installation-of-r-studio"><a class="header" href="#installation-of-r-studio">Installation of R studio</a></h2>
+<p>After you click the following link: <a href="https://www.rstudio.com/products/rstudio/download/">https://www.rstudio.com/products/rstudio/download/</a></p>
+<p>You will see as the following figure. Choose the free version, which is totally enough for our class application and practice</p>
+<p align="center">
+  <img src="images/t1/3.png" style="width: 100%"/>
+</p>
+<blockquote>
+<h3 id="tip-update-r-language-in-rstudio"><a class="header" href="#tip-update-r-language-in-rstudio">Tip: Update R language in Rstudio</a></h3>
+<p><strong>For Windows users only:</strong></p>
+<pre><code class="language-r"># install package installr ----
+install.pacages(&quot;installr&quot;)
+# load package ----
+library(installr)
+# update R ----
+updateR()
+</code></pre>
+<p><strong>For Mac users:</strong></p>
+<p>Go to <a href="https://cloud.r-project.org/bin/macosx/">R project</a> to download the latest R.</p>
+<p><em>Note: make sure to install the correct version of R for your Mac chips.</em></p>
+</blockquote>
+<h2 id="rstudio-interface"><a class="header" href="#rstudio-interface">RStudio Interface</a></h2>
+<p>If you have successfully installed the R studio, you will see the same R studio console as the below figure showing after launching on the RStudio. (OS: Windows 10)</p>
+<p>In this class, all the practice, homework, and project will be processing on RStudio.</p>
+<p align="center">
+  <img src="images/t1/4.png" style="width: 100%"/>
+</p>
+<h2 id="r-packages"><a class="header" href="#r-packages">R Packages</a></h2>
+<p>A package is essentially a library of prewritten code designed to accomplish some task or a collection of tasks. It is the most powerful tool in the R.</p>
+<p>In this class we will be more focused on the package of ggplot2, which is most efficient package for visualization. Though there are still some very robust and well-maintained packages out there, such as dplyr, readr, caret, tibbles, or knitr.</p>
+<h3 id="installation-of-r-packages"><a class="header" href="#installation-of-r-packages">Installation of R Packages</a></h3>
+<p>The fastest way to do is typing the following scripts in the Rstudio.</p>
+<pre><code class="language-r"># install package ggplot2 (package name should be a string)
+install.packages(&quot;ggplot2&quot;)
+</code></pre>
+<p><em>NOTE: the package name is <strong>case sensitive</strong>, which means <code>Ggplot2</code> is different from <code>ggplot2</code></em></p>
+<h3 id="get-help-document"><a class="header" href="#get-help-document">Get Help Document</a></h3>
+<p>There are 3 ways to get help document.</p>
+<ul>
+<li>
+<p>Press F1 (for laptop may click <code>Fn+F1</code>, or &quot;Other function key&quot;+<code>F1</code>) and then the help tab will pop up on the right bottom of the RStudio.</p>
+</li>
+<li>
+<p>Type <code>help(install.packages)</code></p>
+</li>
+<li>
+<p>Type <code>?install.packages</code></p>
+</li>
+</ul>
+<p>Then you will see:</p>
+<p align="center">
+  <img src="images/t1/5.png" style="width: 80%"/>
+</p>
+<h3 id="unloading-r-packages"><a class="header" href="#unloading-r-packages">Un/Loading R Packages</a></h3>
+<h4 id="loading-r-packages-two-ways"><a class="header" href="#loading-r-packages-two-ways">Loading R packages (Two ways)</a></h4>
+<pre><code class="language-r">library(ggplot2)
+</code></pre>
+<p align="left">
+  <img src="images/t1/6.png" style="width: 60%"/>
+</p>
+<p>Or:</p>
+<pre><code class="language-r">require(ggplot2)
+</code></pre>
+<p align="left">
+  <img src="images/t1/7.png" style="width: 60%"/>
+</p>
+<p><code>require</code> is designed for use inside functions returning FALSE/TRUE.</p>
+<h4 id="unloading-r-packages-1"><a class="header" href="#unloading-r-packages-1">Unloading R packages:</a></h4>
+<pre><code class="language-r">detach(&quot;package:ggplot2&quot;)
+</code></pre>
+<p><em>NOTE 1: We usually ignore the warning message, not all the time.</em><br />
+<em>NOTE 2: You may need to load the packages again if you relaunch RStudio.</em><br />
+<em>NOTE 3: It will automatedly detach all the global packages you loaded after closing Rstudio,</em></p>
+<p><em>then follow NOTE2...</em></p>
+<p align="left">
+  <img src="images/t1/8.png" style="width: 10%"/>
+</p>
+<h3 id="packages-needed"><a class="header" href="#packages-needed">Packages Needed</a></h3>
+<p>You’ll also need to install some R packages. An R package is a collection of
+functions, data, and documentation that extends the capabilities of base R.</p>
+<pre><code class="language-r">install.packages(&quot;tidyverse&quot;)
+
+library(tidyverse)
+</code></pre>
+<p align="center">
+  <img src="images/t1/2.png" style="width: 50%"/>
+</p>
+<p>This tells you that tidyverse is loading the <code>ggplot2</code>, <code>tibble</code>, <code>tidyr</code>, <code>readr</code>,
+<code>purrr</code>, <code>stringr</code>, <code>forcats</code>, and <code>dplyr</code> packages. These are considered to be the core of the tidyverse
+because you’ll use them in almost every analysis.</p>
+<p>This also tells you that there are two functions from dplyr having conflicts with stats.
+You'll use <code>dplyr::</code> or <code>stats::</code> to specific the function from dplyr.
+This is a very common issue students may have.</p>
+<h2 id="installation-of-r-markdown"><a class="header" href="#installation-of-r-markdown">Installation of R Markdown</a></h2>
+<p>There are many other excellent packages that are not part of the tidyverse.</p>
+<pre><code class="language-r"># install r markdown from CRAN ----
+install.packages(&quot;rmarkdown&quot;)
+# or if you want to test the development version ----
+# install from GitHub ----
+if (!requireNamespace(&quot;devtools&quot;))
+  install.packages('devtools')
+devtools::install_github('rstudio/rmarkdown')
+</code></pre>
+<p>If you want to generate PDF output, you will need to install LaTeX. For R Markdown users who have not installed LaTeX before, we recommend that you install tinyteX.</p>
+<pre><code class="language-r"># install tinyteX ----
+install.packages(&quot;tinytex&quot;)
+
+tinytex::install_tinytex()
+</code></pre>
+<p>If you have any issues with R Markdown, feel free to check: <a href="./faq.html">FAQ for the class</a></p>
+<h4 id="references"><a class="header" href="#references">References:</a></h4>
+<p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science. 2017.</a> <br />
+[2] <a href="https://bookdown.org/yihui/rmarkdown/">Yihui Xie, J. J. Allaire, Garrett Grolemund. R Markdown. 2022. </a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="r-functions-and-the-grammar-of-visualization"><a class="header" href="#r-functions-and-the-grammar-of-visualization">R functions and the grammar of visualization</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-visualization-concepts"><a class="header" href="#data-visualization-concepts">Data Visualization Concepts</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-data-visualization-in-r"><a class="header" href="#basic-data-visualization-in-r">Basic data visualization in R</a></h1>
@@ -410,6 +535,11 @@ please check out the following tutorial on Youtube: <a href="https://www.youtube
             window.playground_copyable = true;
         </script>
 
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
 
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
