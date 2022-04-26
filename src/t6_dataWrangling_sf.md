@@ -1,1 +1,1 @@
-# Data wrangling with stringr, forcats(optional)
+# Data Wrangling with stringr, forcats(optional)

@@ -66,7 +66,7 @@ IE6600 covers basic of the R, and R Shiny for data preprocessing, and visualizat
     </tr>
 <!-- =============================== Topic 2 ================================ -->
     <tr>
-      <td rowspan="3"><a href="t1_basicR.md">R functions and the grammar of visualization</a></td>
+      <td rowspan="3"><a href="t2_grammar.md">R functions and the grammar of visualization</a></td>
       <td rowspan="3"><a href="https://zhenyuanlu.com/slides/t03RGrammar.pdf">📑</a></td>
       <td rowspan="1">
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/workflow-basics.html">Workflow</a>
@@ -84,14 +84,7 @@ IE6600 covers basic of the R, and R Shiny for data preprocessing, and visualizat
     </tr>
 <!-- =============================== Topic 3 ================================ -->
     <tr>
-      <td><a href="t1_basicR.md">Data Visualization Concepts</a></td>
-      <td rowspan="1"></td>
-      <td rowspan="1">
-      </td>
-    </tr>
-<!-- =============================== Topic 4 ================================ -->
-    <tr>
-      <td rowspan="2"><a href="t1_basicR.md">Basic data visualization in R</a></td>
+      <td rowspan="2"><a href="t3_basicViz.md">Basic data visualization in R</a></td>
       <td rowspan="2"><a href="https://zhenyuanlu.com/slides/t05DataViz.pdf">📑</a></td>
       <td rowspan="1">
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/workflow-basics.html">Data Visualization with ggplot2</a>
@@ -102,17 +95,17 @@ IE6600 covers basic of the R, and R Shiny for data preprocessing, and visualizat
         (optional) <b>RGC</b>"Quickly Exploring Data"
       </td>
     </tr>
-<!-- =============================== Topic 5 ================================ -->
+<!-- =============================== Topic 4 ================================ -->
     <tr>
-      <td><a href="t1_basicR.md">	Data transformation with dplyr</a></td>
+      <td><a href="t4_transData.md">	Data transformation with dplyr</a></td>
       <td rowspan="1"><a href="https://zhenyuanlu.com/slides/t06DataTrans.pdf"> 📑</a></td>
       <td rowspan="1">
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/transform.html">Data Transformation with dplyr</a>
       </td>
     </tr>
-<!-- =============================== Topic 6 ================================ -->
+<!-- =============================== Topic 5 ================================ -->
     <tr>
-      <td rowspan="3"><a href="t1_basicR.md">Data wrangling with tibbles, readr and tidyr</a></td>
+      <td rowspan="3"><a href="t5_dataWrangling_trt.md">Data wrangling with tibbles, readr and tidyr</a></td>
       <td rowspan="3"><a href="https://zhenyuanlu.com/slides/t07DataWrg_trt.pdf"> 📑</a></td>
       <td rowspan="1">
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/tibbles.html">Tibbles with tibble</a>
@@ -128,33 +121,33 @@ IE6600 covers basic of the R, and R Shiny for data preprocessing, and visualizat
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/tidy-data.html">Tidy Data with tidyr</a>
       </td>
     </tr>
-<!-- =============================== Topic 7 ================================ -->
+<!-- =============================== Topic 6 ================================ -->
     <tr>
-      <td rowspan="1"><a href="t1_basicR.md">(optional) Data wrangling with stringr, forcats</a></td>
+      <td rowspan="1"><a href="t6_dataWrangling_sf.md">(optional) Data wrangling with stringr, forcats</a></td>
       <td rowspan="1"><a href="https://zhenyuanlu.com/slides/t07DataWrg_sf.pdf"> 📑</a></td>
       <td rowspan="1">
         (optional) <b>R4DS</b>"Strings with stringr", "Factors with forcats"
       </td>
     </tr>
-<!-- =============================== Topic 8 ================================ -->
+<!-- =============================== Topic 7 ================================ -->
     <tr>
-      <td><a href="t1_basicR.md">Visualizing Relational Data</a></td>
+      <td><a href="t7_relational.md">Visualizing Relational Data</a></td>
       <td rowspan="1"><a href="https://zhenyuanlu.com/slides/t08RelationalData.pdf"> 📑</a></td>
       <td rowspan="1">
         <b>R4DS</b> <a href="https://r4ds.had.co.nz/relational-data.html">Relational Data with dplyr</a>
       </td>
     </tr>
-<!-- =============================== Topic 9 ================================ -->
+<!-- =============================== Topic 8 ================================ -->
     <tr>
-      <td><a href="t1_basicR.md">Introduction to Shiny</a></td>
+      <td><a href="t8_shiny.md">Introduction to Shiny</a></td>
       <td rowspan="1">📑</td>
       <td rowspan="1">
         <b>R Shiny</b> <a href="https://shiny.rstudio.com/tutorial/">Shiny tutorial</a>
       </td>
     </tr>
-<!-- =============================== Topic 10 ================================ -->
+<!-- =============================== Topic 9 ================================ -->
     <tr>
-      <td><a href="t1_basicR.md">Exploratory data analysis and more data visualization</a></td>
+      <td><a href="t9_eda.md">Exploratory data analysis and more data visualization</a></td>
       <td rowspan="1">📑</td>
       <td rowspan="1">
         <b>R4DS </b> <a href="https://r4ds.had.co.nz/exploratory-data-analysis.html">Exploratory Data Analysis</a>
