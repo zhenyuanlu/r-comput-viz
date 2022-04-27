@@ -2,6 +2,8 @@
 
 **Instructor/Author:** Zhenyuan Lu
 
+**Version:** 0.1.0
+
 **This is the course notes** for IE6600 Computation and Visualization course, which has covered the following semesters:
 
 
