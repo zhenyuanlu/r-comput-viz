@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Data Wrangling with tibbles, readr and tidyr - Computation and Visualization in R</title>
+        <title>The Grammar of Graphics - Computation and Visualization in R</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Home</a></li><li class="chapter-item expanded affix "><a href="dis.html">Disclaimer</a></li><li class="chapter-item expanded affix "><a href="faq.html">FAQ for the class</a></li><li class="chapter-item expanded "><a href="t1_basicR.html"><strong aria-hidden="true">1.</strong> Basic of R</a></li><li class="chapter-item expanded "><a href="t2_grammar.html"><strong aria-hidden="true">2.</strong> R Functions and the Grammar of Visualization</a></li><li class="chapter-item expanded "><a href="t3_basicViz.html"><strong aria-hidden="true">3.</strong> Basic Data Visualization in R</a></li><li class="chapter-item expanded "><a href="t4_transData.html"><strong aria-hidden="true">4.</strong> Data Transformation with dplyr</a></li><li class="chapter-item expanded "><a href="t5_dataWrangling_trt.html" class="active"><strong aria-hidden="true">5.</strong> Data Wrangling with tibbles, readr and tidyr</a></li><li class="chapter-item expanded "><a href="t6_dataWrangling_sf.html"><strong aria-hidden="true">6.</strong> Data Wrangling with stringr, forcats(optional)</a></li><li class="chapter-item expanded "><a href="t7_relational.html"><strong aria-hidden="true">7.</strong> Visualizing Relational Data</a></li><li class="chapter-item expanded "><a href="t8_shiny.html"><strong aria-hidden="true">8.</strong> Introduction to Shiny</a></li><li class="chapter-item expanded "><a href="t9_eda.html"><strong aria-hidden="true">9.</strong> Exploratory Data Analysis and More Data Visualization</a></li><li class="chapter-item expanded "><a href="additional.html"><strong aria-hidden="true">10.</strong> Additional R Workshop</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Home</a></li><li class="chapter-item expanded affix "><a href="dis.html">Disclaimer</a></li><li class="chapter-item expanded affix "><a href="faq.html">FAQ for the class</a></li><li class="chapter-item expanded "><a href="t1_basicR.html"><strong aria-hidden="true">1.</strong> Basic of R</a></li><li class="chapter-item expanded "><a href="t2_func.html"><strong aria-hidden="true">2.</strong> R Functions</a></li><li class="chapter-item expanded "><a href="t3_gramar.html" class="active"><strong aria-hidden="true">3.</strong> The Grammar of Graphics</a></li><li class="chapter-item expanded "><a href="t4_basicViz.html"><strong aria-hidden="true">4.</strong> Basic Data Visualization in R</a></li><li class="chapter-item expanded "><a href="t5_transData.html"><strong aria-hidden="true">5.</strong> Data Transformation with dplyr</a></li><li class="chapter-item expanded "><a href="t6_dataWrangling_trt.html"><strong aria-hidden="true">6.</strong> Data Wrangling with tibbles, readr and tidyr</a></li><li class="chapter-item expanded "><a href="t7_dataWrangling_sf.html"><strong aria-hidden="true">7.</strong> (optional) Data Wrangling with stringr, forcats</a></li><li class="chapter-item expanded "><a href="t8_relational.html"><strong aria-hidden="true">8.</strong> Visualizing Relational Data</a></li><li class="chapter-item expanded "><a href="t9_shiny.html"><strong aria-hidden="true">9.</strong> Introduction to Shiny</a></li><li class="chapter-item expanded "><a href="t10_eda.html"><strong aria-hidden="true">10.</strong> Exploratory Data Analysis and More Data Visualization</a></li><li class="chapter-item expanded "><a href="additional.html"><strong aria-hidden="true">11.</strong> Additional R Workshop</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,17 +147,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="data-wrangling-with-tibbles-readr-and-tidyr"><a class="header" href="#data-wrangling-with-tibbles-readr-and-tidyr">Data Wrangling with tibbles, readr and tidyr</a></h1>
+                        <h1 id="the-grammar-of-graphics"><a class="header" href="#the-grammar-of-graphics">The Grammar of Graphics</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="t4_transData.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="t2_func.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="t6_dataWrangling_sf.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="t4_basicViz.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -167,17 +167,33 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="t4_transData.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="t2_func.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="t6_dataWrangling_sf.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="t4_basicViz.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
