@@ -12,7 +12,6 @@ After you click the following link: <https://cran.r-project.org/>
 
 You will see as the following figure. Click the proper link and start the installation
 
-
 <p align="center">
   <img src="images/t1/1.png" style="width: 100%"/>
 </p>
@@ -181,5 +180,5 @@ If you have any issues with R Markdown, feel free to check: [FAQ for the class](
 
 #### References:
 
-[1] [Hadley Wickham, Garrett Grolemund. R For Data Science. 2017.](https://r4ds.had.co.nz/) \
-[2] [Yihui Xie, J. J. Allaire, Garrett Grolemund. R Markdown. 2022. ](https://bookdown.org/yihui/rmarkdown/)
+[1] [Hadley Wickham, Garrett Grolemund. R For Data Science.](https://r4ds.had.co.nz/) \
+[2] [Yihui Xie, J. J. Allaire, Garrett Grolemund. R Markdown.](https://bookdown.org/yihui/rmarkdown/)

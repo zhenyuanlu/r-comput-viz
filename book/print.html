@@ -493,9 +493,407 @@ tinytex::install_tinytex()
 </code></pre>
 <p>If you have any issues with R Markdown, feel free to check: <a href="./faq.html">FAQ for the class</a></p>
 <h4 id="references"><a class="header" href="#references">References:</a></h4>
-<p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science. 2017.</a> <br />
-[2] <a href="https://bookdown.org/yihui/rmarkdown/">Yihui Xie, J. J. Allaire, Garrett Grolemund. R Markdown. 2022. </a></p>
+<p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a> <br />
+[2] <a href="https://bookdown.org/yihui/rmarkdown/">Yihui Xie, J. J. Allaire, Garrett Grolemund. R Markdown.</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="r-functions"><a class="header" href="#r-functions">R Functions</a></h1>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<p>R has a large collection of built-in functions that are called like this:</p>
+<pre><code class="language-r">function_name(arg1 = val1, arg2 = val2, ...)
+</code></pre>
+<p>Let’s try using sum(), which makes regular summary of numbers. Type su and hit Tab. A pop-up shows you possible completions. Specify sum() by typing more (a “m”) to disambiguate, or by using ↑/↓ arrows to select.</p>
+<pre><code class="language-r">sum(1,2)
+</code></pre>
+<pre><code class="language-text">## [1] 3
+</code></pre>
+<h2 id="how-to-create-function"><a class="header" href="#how-to-create-function">How to create function</a></h2>
+<p>The default syntax for creating a function as follow:</p>
+<pre><code class="language-r">variable &lt;- function(arg1, arg2,...){
+  your expression/algorithm
+}
+</code></pre>
+<h2 id="hello-world"><a class="header" href="#hello-world">Hello, World!</a></h2>
+<p>Now is the very cliché stuff...</p>
+<p>If we did not include a &quot;Hello, World!&quot; this would not be a serious and <strong>sleepy</strong> programming class.</p>
+<pre><code class="language-r">hello &lt;- function(){
+  print(&quot;Hello, World!&quot;)
+}
+hello()
+</code></pre>
+<pre><code class="language-text">## [1] &quot;Hello, World!&quot;
+</code></pre>
+<h2 id="name-masking"><a class="header" href="#name-masking">Name masking</a></h2>
+<p>You should have no problem predicting the output.</p>
+<pre><code class="language-r">f &lt;- function() {
+  x &lt;- 1
+  y &lt;- 2
+  c(x, y)
+}
+f()
+</code></pre>
+<pre><code class="language-text">## [1] 1 2
+</code></pre>
+<p>If a name isn’t defined inside a function, R will look one level up.</p>
+<pre><code class="language-r">x &lt;- 2
+g &lt;- function() {
+  y &lt;- 1
+  c(x, y)
+}
+g()
+</code></pre>
+<pre><code class="language-text">## [1] 2 1
+</code></pre>
+<h2 id="function-inside-another-function"><a class="header" href="#function-inside-another-function">Function inside another function</a></h2>
+<pre><code class="language-r">x &lt;- 1
+h &lt;- function() {
+  y &lt;- 2
+  i &lt;- function() {
+    z &lt;- 3
+    c(x, y, z)
+  }
+  i()
+}
+h()
+</code></pre>
+<pre><code>## [1] 1 2 3
+</code></pre>
+<h2 id="functios-created-by-other-function"><a class="header" href="#functios-created-by-other-function">Functios created by other function</a></h2>
+<pre><code class="language-r">j &lt;- function(x) {
+  y &lt;- 2
+  function() {
+    c(x, y)
+  }
+}
+k &lt;- j(1)
+k()
+</code></pre>
+<pre><code>## [1] 1 2
+</code></pre>
+<h2 id="functions-vs-variables"><a class="header" href="#functions-vs-variables">Functions vs Variables</a></h2>
+<p>The same principles apply regardless of the type of associated value — finding functions works exactly the same way as finding variables:</p>
+<pre><code class="language-r">l &lt;- function(x)
+  x + 1
+m &lt;- function() {
+  l &lt;- function(x)
+    x * 2
+  l(10)
+}
+m()
+</code></pre>
+<pre><code>## [1] 20
+</code></pre>
+<p>If you are using a name in a context where it’s obvious that you want a function (e.g.,<code>f(3)</code>), R will ignore objects that are not functions while it is searching.</p>
+<pre><code class="language-r">n &lt;- function(x)
+  x / 2
+o &lt;- function() {
+  n &lt;- 10
+  n(n)
+}
+o()
+</code></pre>
+<pre><code>## [1] 5
+</code></pre>
+<blockquote>
+<h3 id="exercise"><a class="header" href="#exercise">Exercise</a></h3>
+<p>What does the following function return? Make a prediction before running the code yourself.</p>
+<pre><code>f &lt;- function(x) {
+ f &lt;- function(x) {
+   f &lt;- function(x) {
+     x ^ 2
+   }
+   f(x) + 1
+ }
+ f(x) * 2
+}
+f(10)
+</code></pre>
+</blockquote>
+<blockquote>
+<h3 id="answer"><a class="header" href="#answer">Answer:</a></h3>
+<p><code>## [1] 202</code></p>
+</blockquote>
+<h2 id="every-operation-is-a-function-call"><a class="header" href="#every-operation-is-a-function-call">Every operation is a function call</a></h2>
+<p>“To understand computations in R, two slogans are helpful:</p>
+<ul>
+<li>Everything that exists is an object.</li>
+<li>Everything that happens is a function call.”</li>
+</ul>
+<p><em><p style='text-align: center;'> - John Chambers </p></em></p>
+<p>Say a <code>+</code> operation between variable <code>x</code> and <code>y</code>, we can do this:</p>
+<pre><code class="language-{r eval=T}">x &lt;- 1
+y &lt;- 2
+x+y
+</code></pre>
+<pre><code>## [1] 3
+</code></pre>
+<p>Then if we set the <code>+</code> operator into a regular funciton format:</p>
+<pre><code class="language-{r  eval=T}">`+`(x,y)
+</code></pre>
+<pre><code>## [1] 3
+</code></pre>
+<p>Another example of <code>for</code></p>
+<pre><code class="language-r">for (i in 1:2) print(i)
+</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+</code></pre>
+<p>Then again <code>for</code> as a regular funciton:</p>
+<pre><code class="language-r">`for`(i, 1:2, print(i))
+</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+</code></pre>
+<h2 id="anonymous-functions"><a class="header" href="#anonymous-functions">Anonymous functions</a></h2>
+<p>Anonymouse functions shows you a side of functions that you might not have known about: you can use functions without giving them a name.</p>
+<p>In R, functions are objects. They aren’t automatically bound to a name. Unlike other languages (e.g., Python), R doesn’t have a special syntax for creating a named function.</p>
+<p>Generally, you use the regular assignment operator to give it a name when you create a function in R. If you choose not to give the function a name, you get an anonymous function.</p>
+<p>The following code chunk does not call the function, but it only return the function itself.</p>
+<pre><code class="language-r">function(x)3()
+</code></pre>
+<pre><code>function(x)3()
+</code></pre>
+<p>You can call an anonymous function without giving it a name. You have to use the parenthesis in two ways: first, to call a function, and second to make it clear that you want to call the anonymous function itself, as opposed to calling a (possibly invalid) function <em>inside</em> the anonymous function:</p>
+<p>With appropriate parenthesis, the function is called:</p>
+<pre><code class="language-r">(function(x) 3)()
+</code></pre>
+<pre><code>## [1] 3
+</code></pre>
+<h2 id="return-values"><a class="header" href="#return-values">Return Values</a></h2>
+<p>Functions are generally used for computing some value, so they need a mechanism to
+supply that value back to the caller.</p>
+<pre><code class="language-r"># first build it without an explicit return
+double.num &lt;- function(x) {
+  x * 2
+}
+double.num(5)
+</code></pre>
+<pre><code>## [1] 10
+</code></pre>
+<pre><code class="language-r"># now build it with an explicit return
+double.num &lt;- function(x) {
+  return(x * 2)
+}
+double.num(5)
+</code></pre>
+<pre><code>## [1] 10
+</code></pre>
+<pre><code class="language-r">double.num &lt;- function(x) {
+  x * 3
+  print(&quot;hello&quot;)
+  x * 2
+}
+double.num(5)
+</code></pre>
+<pre><code>## [1] &quot;hello&quot;
+## [1] 10
+</code></pre>
+<pre><code class="language-r">double.num &lt;- function(x) {
+  return(x * 2)
+  print(&quot;hello&quot;)
+  return(3)
+}
+double.num(5)
+</code></pre>
+<pre><code>## [1] 10
+</code></pre>
+<h2 id="control-statments"><a class="header" href="#control-statments">Control Statments</a></h2>
+<p>Control statements allow us to control the flow of our programming and cause different
+things to happen, depending on the values of tests. The main control statements are
+<code>if</code> , <code>else</code>, <code>ifelse</code> and <code>switch</code>.</p>
+<h3 id="create-one-function-with-if-and-else"><a class="header" href="#create-one-function-with-if-and-else">Create one function with if and else</a></h3>
+<p>Let's try to create a function to demonstrate if the variable is equal to 1</p>
+<pre><code class="language-r">if.one &lt;- function(x){
+  if(x==1){
+    print(&quot;True&quot;)
+  }else{
+    print(&quot;False&quot;)
+  }
+}
+if.one(1)
+if.one(2)
+</code></pre>
+<pre><code>## [1] &quot;True&quot;
+## [1] &quot;False&quot;
+</code></pre>
+<h3 id="create-one-function-with-ifelse"><a class="header" href="#create-one-function-with-ifelse">Create one function with ifelse</a></h3>
+<p>Let's try to create a function to demonstrate if the variable is equal to 1</p>
+<pre><code class="language-r">if.one &lt;- function(x){
+  ifelse(x==1, &quot;TRUE&quot;,&quot;FALSE&quot;)
+}
+if.one(1)
+if.one(2)
+</code></pre>
+<pre><code>## [1] &quot;TRUE&quot;
+## [1] &quot;FALSE&quot;
+</code></pre>
+<h2 id="create-one-function-with-switch"><a class="header" href="#create-one-function-with-switch">Create one function with switch</a></h2>
+<p>If we have multiple cases to check, writing else if repeatedly can be cumbersome and
+inefficient. This is where switch is most useful.</p>
+<pre><code class="language-r">multipleCases &lt;- function(x){
+  switch(x,
+        a=&quot;first&quot;,
+        b=&quot;second&quot;,
+        z=&quot;last&quot;,
+        c=&quot;third&quot;,
+        d=&quot;other&quot;)
+}
+
+multipleCases(&quot;a&quot;)
+</code></pre>
+<h2 id="special-argument-"><a class="header" href="#special-argument-">Special argument <code>...</code></a></h2>
+<p>There is a special argument called ... . This argument will match any
+arguments not otherwise matched, and can be easily passed on to other
+functions.</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example 1</a></h3>
+<pre><code class="language-r">f &lt;- function(a,b,c) {
+  data.frame(a,b,c)
+}
+f(a = 1, b = 2, c = 3)
+</code></pre>
+<!-- <p align="left">
+  <img src="images/t2/1.png" style="width: 50%"/>
+</p> -->
+<pre><code>##   a b c
+## 1 1 2 3
+</code></pre>
+<h3 id="example-2"><a class="header" href="#example-2">Example 2</a></h3>
+<pre><code class="language-r">f &lt;- function(...) {
+  data.frame(...)
+}
+f(a = 1, b = 2, c = 3, d = 5, e = 7)
+</code></pre>
+<pre><code>##   a b c d e
+## 1 1 2 3 5 7
+</code></pre>
+<blockquote>
+<h2 id="tips"><a class="header" href="#tips">Tips</a></h2>
+<p>Try press Alt-Shift-K to see the shortcuts in R Studio.</p>
+</blockquote>
+<h2 id="for-loops"><a class="header" href="#for-loops"><code>for</code> Loops</a></h2>
+<p>The most commonly used loop is the for loop.</p>
+<pre><code class="language-r">for(i in 1:3){
+  print(i)
+}
+</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+</code></pre>
+<p>Let's build up a automatic <code>for</code> loop to count the number of letters for fruit names.</p>
+<pre><code class="language-r"># build a vector holding fruit names
+fruit &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;pomegranate&quot;)
+# make a variable to hold their lengths, with all NA to start
+fruitLength &lt;- rep(NA, length(fruit))
+fruitLength
+</code></pre>
+<pre><code>## [1] NA NA NA
+</code></pre>
+<pre><code class="language-r"># give it names
+names(fruitLength) &lt;- fruit
+fruitLength
+</code></pre>
+<pre><code>##       apple      banana pomegranate
+##          NA          NA          NA
+</code></pre>
+<pre><code class="language-r">for (i in fruit){
+  fruitLength[i] &lt;- nchar(i)
+}
+fruitLength
+</code></pre>
+<pre><code>##       apple      banana pomegranate
+##           5           6          11
+</code></pre>
+<h2 id="apply-family"><a class="header" href="#apply-family">Apply Family</a></h2>
+<p>Built into R is the <code>apply</code> function and all of its common relatives such as <code>lapply</code>, <code>sapply</code> and <code>mapply</code>. Each has its quirks and necessities and is best used in different situations.</p>
+<h3 id="apply"><a class="header" href="#apply"><code>apply</code></a></h3>
+<pre><code class="language-r">theMatrix &lt;- matrix(1:9, nrow=3)
+# sum the rows
+apply(theMatrix, 1, sum)
+</code></pre>
+<pre><code>## [1] 12 15 18
+</code></pre>
+<pre><code class="language-r"># sum the columns
+apply(theMatrix, 2, sum)
+</code></pre>
+<pre><code>## [1]  6 15 24
+</code></pre>
+<p>Notice that this could alternatively be accomplished using the built-in <code>rowSums</code> and <code>colSums</code> functions, yielding the same results.</p>
+<p>Sum up the row values.</p>
+<pre><code class="language-r">rowSums(theMatrix)
+</code></pre>
+<pre><code>## [1] 12 15 18
+</code></pre>
+<p>Sum up the column values.</p>
+<pre><code class="language-r">colSums(theMatrix)
+</code></pre>
+<pre><code>## [1]  6 15 24
+</code></pre>
+<h3 id="lapply-and-sapply"><a class="header" href="#lapply-and-sapply"><code>lapply</code> and <code>sapply</code></a></h3>
+<p>Basic grammar:</p>
+<pre><code class="language-r">lapply(x, FUN, ...)
+sapply(x, FUN, ...)
+</code></pre>
+<h3 id="lapply"><a class="header" href="#lapply"><code>lapply</code></a></h3>
+<p>lapply works by applying a function to each element of a list and returning the results as a list.</p>
+<p align="center">
+  <img src="images/t2/2.png" style="width: 50%"/>
+</p>
+<p align="right">
+Hadley Wickham, Advanced R
+</p>
+<p><code>lapply</code> works by applying a function to each element of a list and returning the results as a list.</p>
+<pre><code class="language-r">theList &lt;- list(A=1:3, B=1:5, C=-1:1, D=2)
+lapply(theList, sum)
+</code></pre>
+<pre><code>## $A
+## [1] 6
+##
+## $B
+## [1] 15
+##
+## $C
+## [1] 0
+##
+## $D
+## [1] 2
+</code></pre>
+<h3 id="sapply"><a class="header" href="#sapply"><code>sapply</code></a></h3>
+<p><code>sapply</code> is a user-friendly version and wrapper of <code>lapply</code> by default returning a vector.</p>
+<pre><code class="language-r">theList &lt;- list(A=1:3, B=1:5, C=-1:1, D=2)
+sapply(theList, sum)
+</code></pre>
+<pre><code>##  A  B  C  D
+##  6 15  0  2
+</code></pre>
+<h3 id="mapply"><a class="header" href="#mapply"><code>mapply</code></a></h3>
+<p>Perhaps the most-overlooked-when-so-useful member of the <code>apply</code> family is <code>mapply</code>, which applies a function to each element of multiple lists.</p>
+<pre><code class="language-r">firstList &lt;-
+  list(A = matrix(1:16, 4),
+       B = matrix(1:16, 2),
+       C = data.frame(1:5))
+secondList &lt;-
+  list(A = matrix(1:16, 4),
+       B = matrix(1:16, 8),
+       C = data.frame(15:1))
+# test element-by-element if they are identical
+mapply(identical, firstList, secondList)
+</code></pre>
+<pre><code>##     A     B     C
+##  TRUE FALSE FALSE
+</code></pre>
+<p>Lets create one small function with <code>mapply</code>:</p>
+<pre><code class="language-r">simpleFunc &lt;- function(x, y) {
+  nrow(x) + nrow(y)
+}
+mapply(simpleFunc, firstList, secondList)
+</code></pre>
+<pre><code>##  A  B  C
+##  8 10 20
+</code></pre>
+<h4 id="references-1"><a class="header" href="#references-1">References:</a></h4>
+<p>[1] <a href="http://adv-r.had.co.nz/">Hadley Wickham, Advanced R</a><br />
+[2] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a> <br />
+[3] <a href="https://bookdown.org/yihui/rmarkdown/">Yihui Xie, J. J. Allaire, Garrett Grolemund. R Markdown.</a><br />
+[4] <a href="https://onesearch.library.northeastern.edu/permalink/f/365rt0/NEU_ALMA51284955070001401">Writing R functions, Jared P. Lander</a> (NEU library)</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-grammar-of-graphics"><a class="header" href="#the-grammar-of-graphics">The Grammar of Graphics</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-data-visualization-in-r"><a class="header" href="#basic-data-visualization-in-r">Basic Data Visualization in R</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-transformation-with-dplyr"><a class="header" href="#data-transformation-with-dplyr">Data Transformation with dplyr</a></h1>
