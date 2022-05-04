@@ -7,9 +7,10 @@
 **This is the course notes** for IE6600 Computation and Visualization course, which has covered the following semesters:
 
 
+<img src='https://raw.githubusercontent.com/rstudio/shiny/main/man/figures/logo.png' align="right" height="55.5"/>
 <img src='https://raw.githubusercontent.com/rstudio/rmarkdown/main/man/figures/logo.png' align="right" height="55.5"/>
 <img src='https://raw.githubusercontent.com/tidyverse/tidyverse/main/man/figures/logo.png' align="right" height="55.5"/>
-<img src='https://raw.githubusercontent.com/rstudio/shiny/main/man/figures/logo.png' align="right" height="55.5"/>
+
 
 
 - [Summer 22](https://zhenyuanlu.com/ie6600-bos-su22/), [Spring 22](https://zhenyuanlu.com/ie6600-sea-sp22/), [Fall 21](https://zhenyuanlu.com/ie6600-bos-fa21/), [Summer 21](https://zhenyuanlu.com/ie6600-bos-sm21/), [Spring 21](https://zhenyuanlu.com/ie6600-sea-sp21/), [Fall 20](https://zhenyuanlu.com/ie6600-bos-fa20/), Spring 20, Spring 19
