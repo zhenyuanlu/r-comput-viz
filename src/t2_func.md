@@ -1,5 +1,7 @@
 # R Functions
 
+
+
 ## Functions
 
 R has a large collection of built-in functions that are called like this:
@@ -582,9 +584,8 @@ mapply(simpleFunc, firstList, secondList)
 ##  8 10 20
 ```
 
-
 #### References:
 [1] [Hadley Wickham, Advanced R](http://adv-r.had.co.nz/)\
 [2] [Hadley Wickham, Garrett Grolemund. R For Data Science.](https://r4ds.had.co.nz/) \
 [3] [Yihui Xie, J. J. Allaire, Garrett Grolemund. R Markdown.](https://bookdown.org/yihui/rmarkdown/)\
-[4] [Writing R functions, Jared P. Lander](https://onesearch.library.northeastern.edu/permalink/f/365rt0/NEU_ALMA51284955070001401) (NEU library)
+[4] [Jared P. Lander, Writing R functions.](https://onesearch.library.northeastern.edu/permalink/f/365rt0/NEU_ALMA51284955070001401) (NEU library)

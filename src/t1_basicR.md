@@ -1,5 +1,7 @@
 # Basic of R
 
+
+
 <p align="center">
   <img src="https://cran.r-project.org/Rlogo.svg" style="width: 15%"/>
   <img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" style="width: 30%"/>
@@ -177,6 +179,7 @@ tinytex::install_tinytex()
 ```
 
 If you have any issues with R Markdown, feel free to check: [FAQ for the class](./faq.md)
+
 
 #### References:
 

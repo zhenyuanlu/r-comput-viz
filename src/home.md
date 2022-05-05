@@ -1,5 +1,12 @@
 # Introduction
 
+<!-- <p align="center">
+  <img src="images/home/Minard.png" style="width:100%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Creator: Charles Joseph Minard
+</p> -->
+
 **Instructor/Author:** Zhenyuan Lu
 
 **Version:** 0.1.0
@@ -7,9 +14,10 @@
 **This is the course notes** for IE6600 Computation and Visualization course, which has covered the following semesters:
 
 
+<img src='https://raw.githubusercontent.com/tidyverse/tidyverse/main/man/figures/logo.png' align="right" height="55.5"/>
 <img src='https://raw.githubusercontent.com/rstudio/shiny/main/man/figures/logo.png' align="right" height="55.5"/>
 <img src='https://raw.githubusercontent.com/rstudio/rmarkdown/main/man/figures/logo.png' align="right" height="55.5"/>
-<img src='https://raw.githubusercontent.com/tidyverse/tidyverse/main/man/figures/logo.png' align="right" height="55.5"/>
+
 
 
 
