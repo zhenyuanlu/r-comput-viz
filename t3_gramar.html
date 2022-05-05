@@ -148,6 +148,72 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="the-grammar-of-graphics"><a class="header" href="#the-grammar-of-graphics">The Grammar of Graphics</a></h1>
+<h2 id="common-plots"><a class="header" href="#common-plots">Common plots</a></h2>
+<p>Common statistical plots:</p>
+<ul>
+<li>Bar chart</li>
+<li>Scatter plot</li>
+<li>Line chart</li>
+<li>Box plot</li>
+<li>Histogram</li>
+</ul>
+<p>The followings are the general rules for common plots, but theses can always be changed:</p>
+<p>Scatter plot</p>
+<ul>
+<li>continuous varialbe vs continuous variable</li>
+</ul>
+<p>Line plot</p>
+<ul>
+<li>continuous varialbe vs continuous variable</li>
+</ul>
+<p>Box plot</p>
+<ul>
+<li>categorical varialbe vs continuous variable</li>
+</ul>
+<p>Histogram</p>
+<ul>
+<li>continuous variable vs continuous variable</li>
+</ul>
+<p>Bar chart</p>
+<ul>
+<li>categorical varialbe vs continuous variable</li>
+</ul>
+<h2 id="what-make-a-basic-plot"><a class="header" href="#what-make-a-basic-plot">What make a basic plot</a></h2>
+<p align="center">
+  <img src="images/t3/basicPlot.png" style="width:90%"/>
+</p>
+<p align="center">
+The components for a basic plot.
+</p>
+<p>Let's draw a scatterplot of <strong>A</strong> vs <strong>C</strong>.</p>
+<p align="center">
+  <img src="images/t3/1.png" style="width:40%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Wickham, Hadley. A Layered Grammar of Graphics.
+</p>
+<p>Then Mapping A to x-position, C to y-position, and D to shape</p>
+<p align="center">
+  <img src="images/t3/2.png" style="width:40%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Wickham, Hadley. A Layered Grammar of Graphics.
+</p>
+<p>Here we have three basic layers:</p>
+<ul>
+<li>Geometric objects</li>
+<li>Scales</li>
+<li>Coordinate system (From left to right)</li>
+</ul>
+<p align="center">
+  <img src="images/t3/3.png" style="width:90%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Three basic layers. Wickham.
+</p>
+<h4 id="references"><a class="header" href="#references">References</a></h4>
+<p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a> <br />
+[2] <a href="https://vita.had.co.nz/papers/layered-grammar.pdf">Hadley Wickham, A layered grammar of graphics</a></p>
 
                     </main>
 
@@ -178,22 +244,6 @@
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
