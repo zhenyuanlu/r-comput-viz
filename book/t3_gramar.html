@@ -211,9 +211,457 @@ The components for a basic plot.
 <p align="center" style="font-size: 0.775em">
   Three basic layers. Wickham.
 </p>
+<p>Then we have one:</p>
+<p align="center">
+  <img src="images/t3/5.png" style="width:40%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Wickham 2010
+</p>
+<p>Of course, we can also create a plot by faceting:</p>
+<p align="center">
+  <img src="images/t3/6.png" style="width:60%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Wickham 2010
+</p>
+<h2 id="components-of-the-plots"><a class="header" href="#components-of-the-plots">Components of the plots</a></h2>
+<ul>
+<li>Layers:
+<ul>
+<li>Dataset</li>
+<li>Aesthetic mapping (color, shape, size, etc.)</li>
+<li>Statistical transformation</li>
+<li>Geometric object (line, bar, dots, etc.)</li>
+<li>Position adjustment</li>
+</ul>
+</li>
+<li>Scale (optional)</li>
+<li>Coordinate system</li>
+<li>Faceting (optional)</li>
+<li>Defaults</li>
+</ul>
+<h2 id="ggplot2-full-syntax"><a class="header" href="#ggplot2-full-syntax">ggplot2 full syntax</a></h2>
+<p>ggplot2 full syntax actually is following up the above layered grammar.</p>
+<pre><code class="language-r">ggplot(data = &lt;DATASET&gt;,
+       mapping = aes( &lt;MAPPINGS&gt;) +
+        layer(geom = &lt;GEOM&gt;,
+              stat = &lt;STAT&gt;,
+              position = &lt;POSITION&gt;) +
+        &lt;SCALE_FUNCTION&gt;() +
+        &lt;COORDINATE_FUNCTION&gt;() +
+        &lt;FACET_FUNCTION&gt;()
+</code></pre>
+<h3 id="previous-example"><a class="header" href="#previous-example">Previous example</a></h3>
+<p>Let's get back to the previous example.</p>
+<pre><code class="language-r">df &lt;- data.frame(
+  A = c(2, 1, 4, 9),
+  B = c(3, 2, 5, 10),
+  C = c(4, 1, 15, 80),
+  D = c(&quot;a&quot;, &quot;a&quot;, &quot;b&quot;, &quot;b&quot;)
+)
+df
+</code></pre>
+<pre><code>##   A  B  C D
+## 1 2  3  4 a
+## 2 1  2  1 a
+## 3 4  5 15 b
+## 4 9 10 80 b
+</code></pre>
+<blockquote>
+<h3 id="questions"><a class="header" href="#questions">Questions?</a></h3>
+<ul>
+<li>What kind of layers?
+<ul>
+<li>Dataset?</li>
+<li>Aesthetic mapping?</li>
+<li>Statistical transformation?</li>
+<li>Geometric object?</li>
+<li>Position adjustment?</li>
+</ul>
+</li>
+<li>Scale?</li>
+<li>Coordinate system?</li>
+<li>Faceting?</li>
+</ul>
+</blockquote>
+<p>Let's make a simple ggplot2 plot based on the previous example.</p>
+<pre><code class="language-r">ggplot(data = df,
+       mapping = aes(x = A, y = C, shape = D)) +
+  layer(geom = &quot;point&quot;,
+        stat = &quot;identity&quot;,
+        position = &quot;identity&quot;) +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  coord_cartesian() +
+  facet_null()
+</code></pre>
+<p align="center">
+  <img src="images/t3/7.png" style="width:60%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  I know it's a little off from the previous example. We will cover how to adjust the background, dot size, font, etc. in the rest of the semester.
+</p>
+<p align="center">
+  <img src="images/t3/5.png" style="width:40%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Previous example.
+</p>
+<h3 id="facetting-with-grid"><a class="header" href="#facetting-with-grid">Facetting with grid</a></h3>
+<pre><code class="language-r">ggplot(data = df,
+       mapping = aes(x = A, y = C, shape = D)) +
+  layer(geom = &quot;point&quot;,
+        stat = &quot;identity&quot;,
+        position = &quot;identity&quot;) +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  coord_cartesian() +
+  facet_grid( ~ D)
+</code></pre>
+<p align="center">
+  <img src="images/t3/8.png" style="width:50%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Facetting with grid.
+</p>
+<p align="center">
+  <img src="images/t3/6.png" style="width:40%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Previous example.
+</p>
+<h2 id="a-typical-ggplot2"><a class="header" href="#a-typical-ggplot2">A typical ggplot2</a></h2>
+<p>In general, we don't use full syntax of ggplot2 for our daily work.</p>
+<p>We commonly use the following:</p>
+<pre><code class="language-r">ggplot(data = &lt;DATASET&gt; ,
+      mapping = aes(&lt;MAPPINGS)) +
+&lt;GEOM_FUNCTION&gt;()
+</code></pre>
+<h3 id="with-geom_-function"><a class="header" href="#with-geom_-function">With geom_ function</a></h3>
+<pre><code class="language-r">ggplot(data = df, mapping = aes(x = A, y = C, shape = D)) +
+  geom_point()+
+  facet_grid( ~ D)
+</code></pre>
+<p align="center">
+  <img src="images/t3/8.png" style="width:100%"/>
+</p>
+<h3 id="dataset---fuel-economy-in-cars"><a class="header" href="#dataset---fuel-economy-in-cars">Dataset - Fuel economy in cars</a></h3>
+<pre><code class="language-r">library(tidyverse)
+</code></pre>
+<pre><code class="language-r">head(mpg,5)
+</code></pre>
+<pre><code>## # A tibble: 5 x 11
+##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class
+##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
+</code></pre>
+<h3 id="dataset---interviewing-data"><a class="header" href="#dataset---interviewing-data">Dataset - Interviewing data</a></h3>
+<pre><code class="language-r">mpg[,c(&quot;displ&quot;,&quot;hwy&quot;)]
+</code></pre>
+<pre><code>## # A tibble: 234 x 2
+##    displ   hwy
+##    &lt;dbl&gt; &lt;int&gt;
+##  1   1.8    29
+##  2   1.8    29
+##  3   2      31
+##  4   2      30
+##  5   2.8    26
+##  6   2.8    26
+##  7   3.1    27
+##  8   1.8    26
+##  9   1.8    25
+## 10   2      28
+## # ... with 224 more rows
+</code></pre>
+<h3 id="dataset---creating-base"><a class="header" href="#dataset---creating-base">Dataset - Creating base</a></h3>
+<pre><code class="language-r">ggplot(data = mpg)
+</code></pre>
+<p align="center">
+  <img src="images/t3/10.png" style="width:70%"/>
+</p>
+<h3 id="dataset---creating-plot"><a class="header" href="#dataset---creating-plot">Dataset - Creating plot</a></h3>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+</code></pre>
+<p align="center">
+  <img src="images/t3/11.png" style="width:70%"/>
+</p>
+<blockquote>
+<h2 id="exercise"><a class="header" href="#exercise">Exercise</a></h2>
+<ul>
+<li>How many rows are in mtcars? How many columns?</li>
+<li>What does the drv variable describe? Read the help for ?mpg to find out.</li>
+<li>Make a scatterplot of hwy versus cyl.</li>
+</ul>
+</blockquote>
+<h3 id="aesthetic-mappings"><a class="header" href="#aesthetic-mappings">Aesthetic mappings</a></h3>
+<p>We can change levels of size, shape, color, fill, alpha etc. inside of <code>aes()</code></p>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+</code></pre>
+<p align="center">
+  <img src="images/t3/12.png" style="width:70%"/>
+</p>
+<p><strong>Well, if you prefer British English, you can use <code>colour</code> instead of <code>color</code></strong>. In package of <code>tidyverse</code>, you may see couple of function/arguments works for either British/US English.</p>
+<h3 id="aesthetic-mappings---outside-of-aes"><a class="header" href="#aesthetic-mappings---outside-of-aes">Aesthetic mappings - outside of aes()</a></h3>
+<p>You can also set the aesthetic properties of your geom manually.</p>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), color = &quot;red&quot;)
+</code></pre>
+<p align="center">
+  <img src="images/t3/13.png" style="width:70%"/>
+</p>
+<p>Here, the color doesn’t convey information about a variable, but only changes the appearance of the plot.</p>
+<p>Some rules for changing the color/size/shape.</p>
+<ul>
+<li>
+<p>The name of a color as a character string</p>
+</li>
+<li>
+<p>The size of a point in mm</p>
+</li>
+<li>
+<p>The shape of a point as a number</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="25-built-in-shapes-identified-by-numbers"><a class="header" href="#25-built-in-shapes-identified-by-numbers">25 built-in shapes identified by numbers</a></h2>
+<p align="center">
+  <img src="images/t3/15.png" style="width:60%"/>
+</p>
+</blockquote>
+<h3 id="geom_-functions"><a class="header" href="#geom_-functions">geom_() functions</a></h3>
+<ul>
+<li>Geometric object</li>
+<li>Statistical transformation</li>
+<li>Position adjustment</li>
+</ul>
+<h4 id="common-geom-functions-with-geometric-objects"><a class="header" href="#common-geom-functions-with-geometric-objects">Common geom functions with geometric objects</a></h4>
+<ul>
+<li>
+<p>geom_bar, bar chart</p>
+</li>
+<li>
+<p>geom_histogram, histogram</p>
+</li>
+<li>
+<p>geom_point, scatterplot</p>
+</li>
+<li>
+<p>geom_qq, quantile-quantile plot</p>
+</li>
+<li>
+<p>geom_boxplot, boxplot</p>
+</li>
+<li>
+<p>geom_line, line chart</p>
+</li>
+</ul>
+<h4 id="statistical-transformation"><a class="header" href="#statistical-transformation">Statistical transformation</a></h4>
+<p align="center">
+  <img src="images/t3/16.png" style="width:100%"/>
+</p>
+<p align="center" style="font-size: 0.775em">
+  Wickham 2010.
+</p>
+<h4 id="common-geom-with-statistical-transformation"><a class="header" href="#common-geom-with-statistical-transformation">Common geom with statistical transformation</a></h4>
+<p>Typically, you will create layers using a geom_ function.</p>
+<ul>
+<li>geom_bar, bar chart
+<ul>
+<li>stat=&quot;count&quot;</li>
+</ul>
+</li>
+<li>geom_histogram, histogram
+<ul>
+<li>stat=&quot;bin&quot;</li>
+</ul>
+</li>
+<li>geom_point, scatterplot
+<ul>
+<li>stat=&quot;identity&quot;</li>
+</ul>
+</li>
+<li>geom_qq, quantile-quantile plot
+<ul>
+<li>stat=&quot;qq&quot;</li>
+</ul>
+</li>
+<li>geom_boxplot, boxplot
+<ul>
+<li>stat=&quot;boxplot&quot;</li>
+</ul>
+</li>
+<li>geom_line, line chart
+<ul>
+<li>stat=&quot;identity&quot;</li>
+</ul>
+</li>
+</ul>
+<h4 id="the-defaults-stat-and-position-of-geom_"><a class="header" href="#the-defaults-stat-and-position-of-geom_">The defaults stat and position of geom_</a></h4>
+<p>Check the documentation</p>
+<pre><code class="language-r">?geom_line
+</code></pre>
+<p>Check the function</p>
+<pre><code class="language-r">geom_line
+</code></pre>
+<pre><code>## function (mapping = NULL, data = NULL, stat = &quot;identity&quot;, position = &quot;identity&quot;,
+##     na.rm = FALSE, orientation = NA, show.legend = NA, inherit.aes = TRUE,
+##     ...)
+## {
+##     layer(data = data, mapping = mapping, stat = stat, geom = GeomLine,
+##         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+##         params = list(na.rm = na.rm, orientation = orientation,
+##             ...))
+## }
+## &lt;bytecode: 0x000000001281e898&gt;
+## &lt;environment: namespace:ggplot2&gt;
+</code></pre>
+<h4 id="set-of-rules"><a class="header" href="#set-of-rules">Set of rules</a></h4>
+<ul>
+<li>Use <code>geom_ function</code> to make variables visible on the screen.</li>
+<li>Use <code>stat_ function</code> and define geom shape as an argument inside <code>geom_</code>.</li>
+<li>Or use <code>geom_</code> and define statistical transformation as an argument inside stat_.</li>
+</ul>
+<h4 id="common-geom-with-position-adjustments"><a class="header" href="#common-geom-with-position-adjustments">Common geom with position adjustments</a></h4>
+<p>point: <code>geom_point</code>, <code>geom_jitter</code></p>
+<h3 id="scale-syntax"><a class="header" href="#scale-syntax">Scale syntax</a></h3>
+<pre><code class="language-r">scale_&lt;name&gt;_&lt;prepacked scale&gt;()
+</code></pre>
+<p>Several common scale functions:</p>
+<pre><code class="language-r">labs() xlab() ylab() ggtitle()
+lims() xlim() ylim()
+scale_colour_brewer()
+scale_colour_continuous()
+</code></pre>
+<h4 id="scale-example"><a class="header" href="#scale-example">Scale example</a></h4>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color=hwy))+
+  scale_colour_continuous(type=&quot;viridis&quot;)
+</code></pre>
+<p align="center">
+  <img src="images/t3/17.png" style="width:80%"/>
+</p>
+<h3 id="coordinate-system"><a class="header" href="#coordinate-system">Coordinate system</a></h3>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))+
+  coord_polar()
+</code></pre>
+<p align="center">
+  <img src="images/t3/18.png" style="width:80%"/>
+</p>
+<h3 id="faceting"><a class="header" href="#faceting">Faceting</a></h3>
+<h3 id="facet_grid"><a class="header" href="#facet_grid"><code>facet_grid</code></a></h3>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))+
+  facet_grid(.~year)
+</code></pre>
+<p align="center">
+  <img src="images/t3/19.png" style="width:80%"/>
+</p>
+<h3 id="facet_wrap"><a class="header" href="#facet_wrap"><code>facet_wrap</code></a></h3>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))+
+  facet_wrap(.~cyl)
+</code></pre>
+<p align="center">
+  <img src="images/t3/20.png" style="width:80%"/>
+</p>
+<hr />
+<h2 id="a-more-complicated-embedded-grammar"><a class="header" href="#a-more-complicated-embedded-grammar">A more complicated-embedded grammar</a></h2>
+<p align="center">
+  <img src="images/t3/21.png" style="width:80%"/>
+</p>
+<p><strong>The map of Napoleon's Russian campaign</strong></p>
+<p><strong>Charles Joseph Minard</strong> is best known for his cartographic depiction of numerical data on a map of Napoleon's disastrous losses suffered during the Russian campaign of 1812 (in French, Carte figurative des pertes successives en hommes de l'Armée Française dans la campagne de Russie 1812–1813). The illustration depicts Napoleon's army departing the Polish-Russian border. A thick band illustrates the size of his army at specific geographic points during their advance and retreat. It displays six types of data in two dimensions: the number of Napoleon's troops; the distance traveled; temperature; latitude and longitude; direction of travel; and location relative to specific dates without making mention of Napoleon; Minard's interest lay with the travails and sacrifices of the soldiers. This type of band graph for illustration of flows was later called a Sankey diagram, although Matthew Henry Phineas Riall Sankey used this visualisation 30 years later and only for thematic energy flow. - <a href="https://en.wikipedia.org/wiki/Charles_Joseph_Minard">Wiki</a></p>
+<p>Let's reproduce the top part of Minard’s famous depiction of Napoleon’s march on Russia.</p>
+<p>This graphic can be thought of as a compound graphic:</p>
+<ul>
+<li>The top part displays the number of troops during the advance and the retreat</li>
+<li>The bottom part shows the temperature during the advance</li>
+<li></li>
+</ul>
+<p>We will focus on the top part of the graphic. This part displays two datasets: cities and troops. Each city has a position (a latitude and longitude) and a name, and each troop observation has a position, a direction (advance or retreat), and number of survivors.</p>
+<h3 id="load-data-minard-troopstxt-and-minard-citiestxt"><a class="header" href="#load-data-minard-troopstxt-and-minard-citiestxt">Load data: minard-troops.txt and minard-cities.txt</a></h3>
+<p>Supplemental files for &quot;A layered grammar of graphics&quot;</p>
+<ul>
+<li><a href="data/minard-cities.txt">minard-cities.txt</a>: Location of cities in <strong>Napoleon's march</strong> by Minard.</li>
+<li><a href="data/minard-troops.txt">minard-troops.txt</a>: Troop movement data.</li>
+</ul>
+<pre><code class="language-r">troops &lt;- read.table(&quot;minard-troops.txt&quot;, header=T)
+cities &lt;- read.table(&quot;minard-cities.txt&quot;, header=T)
+</code></pre>
+<h4 id="troops"><a class="header" href="#troops"><code>troops</code></a></h4>
+<pre><code class="language-r">head(troops)
+</code></pre>
+<pre><code>##   long  lat survivors direction group
+## 1 24.0 54.9    340000         A     1
+## 2 24.5 55.0    340000         A     1
+## 3 25.5 54.5    340000         A     1
+## 4 26.0 54.7    320000         A     1
+## 5 27.0 54.8    300000         A     1
+## 6 28.0 54.9    280000         A     1
+</code></pre>
+<h4 id="cities"><a class="header" href="#cities"><code>cities</code></a></h4>
+<pre><code class="language-r">head(cities)
+</code></pre>
+<pre><code>##   long  lat      city
+## 1 24.0 55.0     Kowno
+## 2 25.3 54.7     Wilna
+## 3 26.4 54.4  Smorgoni
+## 4 26.8 54.3 Moiodexno
+## 5 27.7 55.2 Gloubokoe
+## 6 27.6 53.9     Minsk
+</code></pre>
+<h3 id="how-would-we-create-this-graphic-with-the-layered-grammar"><a class="header" href="#how-would-we-create-this-graphic-with-the-layered-grammar">How would we create this graphic with the layered grammar?</a></h3>
+<ul>
+<li>Start with the essence of the graphic: a path plot of the troops data, mapping direction to color and number of survivors to size.</li>
+<li>Then take the position of the cities as an additional layer</li>
+<li>Then polish the plot by carefully tweaking the default scales</li>
+</ul>
+<p>Start with the essence of the graphic: a path plot of the troops data, mapping direction to color and number of survivors to size.</p>
+<pre><code class="language-r">plot_troops &lt;- ggplot(troops, aes(long, lat)) +
+  geom_path(aes(size = survivors, colour = direction, group = group))
+plot_troops
+</code></pre>
+<p align="center">
+  <img src="images/t3/22.png" style="width:100%"/>
+</p>
+<p>Then take the position of the cities as an additional layer.</p>
+<pre><code class="language-r">plot_both &lt;- plot_troops +
+  geom_text(aes(label = city), size = 4, data = cities)
+plot_both
+</code></pre>
+<p align="center">
+  <img src="images/t3/23.png" style="width:100%"/>
+</p>
+<p>Then polish the plot by carefully tweaking the default scales.</p>
+<pre><code class="language-r">plot_polished &lt;- plot_both +
+  scale_size(
+    range = c(0, 12),
+    # breaks = c(10000, 20000, 30000),
+    # labels = c(&quot;10,000&quot;, &quot;20,000&quot;, &quot;30,000&quot;)
+  ) +
+  scale_color_manual(values = c(&quot;tan&quot;, &quot;grey50&quot;)) +
+  coord_map() +
+  labs(title = &quot;Map of Napoleon's Russian campaign of 1812&quot;) +
+  theme_void() +
+  theme(legend.position = &quot;none&quot;)
+plot_polished
+</code></pre>
+<p align="center">
+  <img src="images/t3/25.png" style="width:100%"/>
+</p>
+<p>I admitted that there is still huge room to improve this plot, but it gives us some taste of how to use R to mimic this classical visualization created hundred years ago by Minard.</p>
 <h4 id="references"><a class="header" href="#references">References</a></h4>
 <p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a> <br />
-[2] <a href="https://vita.had.co.nz/papers/layered-grammar.pdf">Hadley Wickham, A layered grammar of graphics</a></p>
+[2] <a href="https://vita.had.co.nz/papers/layered-grammar.pdf">Hadley Wickham, A layered grammar of graphics</a>
+[3] <a href="https://ggplot2.tidyverse.org/reference/">ggplot2 references</a></p>
 
                     </main>
 
