@@ -121,11 +121,11 @@ require(ggplot2)
 detach("package:ggplot2")
 ```
 
-*NOTE 1: We usually ignore the warning message, not all the time.*\
-*NOTE 2: You may need to load the packages again if you relaunch RStudio.*\
-*NOTE 3: It will automatedly detach all the global packages you loaded after closing Rstudio,*
 
-*then follow NOTE2...*
+*NOTE 1: You may need to load the packages again if you relaunch RStudio.*\
+*NOTE 2: It will automatedly detach all the global packages you loaded after closing Rstudio,*
+
+*then follow NOTE1...*
 
 <p align="left">
   <img src="images/t1/8.png" style="width: 10%"/>
