@@ -1415,6 +1415,137 @@ plot_polished
 [2] <a href="https://vita.had.co.nz/papers/layered-grammar.pdf">Hadley Wickham, A layered grammar of graphics</a>
 [3] <a href="https://ggplot2.tidyverse.org/reference/">ggplot2 references</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-data-visualization-in-r"><a class="header" href="#basic-data-visualization-in-r">Basic Data Visualization in R</a></h1>
+<h2 id="chart-selection"><a class="header" href="#chart-selection">Chart selection</a></h2>
+<p>A great explanation on selecting a right chart type by Dr. Andrew Abela.</p>
+<p>but as a data scientist should not be limited by this.</p>
+<p align="center">
+  <img src="images/t4/1.png" style="width:100%"/>
+</p>
+<h2 id="components-of-the-plots-1"><a class="header" href="#components-of-the-plots-1">Components of the plots</a></h2>
+<ul>
+<li>Layers:
+<ul>
+<li>Dataset</li>
+<li>Aesthetic mapping (color, shape, size, etc.)</li>
+<li>Statistical transformation</li>
+<li>Geometric object (line, bar, dots, etc.)</li>
+<li>Position adjustment</li>
+</ul>
+</li>
+<li>Scale (optional)</li>
+<li>Coordinate system</li>
+<li>Faceting (optional)</li>
+<li>Defaults</li>
+</ul>
+<h2 id="ggplot2-full-syntax-1"><a class="header" href="#ggplot2-full-syntax-1">ggplot2 full syntax</a></h2>
+<pre><code class="language-r">ggplot(data = &lt;DATASET&gt;,
+       mapping = aes( &lt;MAPPINGS&gt;) +
+        layer(geom = &lt;GEOM&gt;,
+              stat = &lt;STAT&gt;,
+              position = &lt;POSITION&gt;) +
+        &lt;SCALE_FUNCTION&gt;() +
+        &lt;COORDINATE_FUNCTION&gt;() +
+        &lt;FACET_FUNCTION&gt;()
+</code></pre>
+<h3 id="a-typical-graph-template"><a class="header" href="#a-typical-graph-template">A typical graph template</a></h3>
+<pre><code class="language-r">ggplot(data = &lt;DATASET&gt; ,
+      mapping = aes(&lt;MAPPINGS)) +
+      &lt;GEOM_FUNCTION&gt;()
+</code></pre>
+<h2 id="creat-a-plot-with-basic-data"><a class="header" href="#creat-a-plot-with-basic-data">Creat a plot with basic data</a></h2>
+<pre><code class="language-r">ggplot(data=mpg)+
+  geom_point(mapping = aes(x=displ&gt;2,y=hwy))
+</code></pre>
+<p align="center">
+  <img src="images/t4/2.png" style="width:70%"/>
+</p>
+<pre><code class="language-r">ggplot(data=mpg[mpg$model==&quot;a4&quot;,])+
+  geom_point(mapping = aes(x=displ,y=hwy))
+</code></pre>
+<p align="center">
+  <img src="images/t4/3.png" style="width:70%"/>
+</p>
+<h2 id="aesthetic-mappings-1"><a class="header" href="#aesthetic-mappings-1">Aesthetic Mappings</a></h2>
+<p>The greatest value of a picture is when it forces us to notice what we never expected to see.</p>
+<p>—John Tukey</p>
+<p>Basic components of aesthetic mapping:</p>
+<ul>
+<li>Mapping</li>
+<li>Size</li>
+<li>Alpha</li>
+<li>Shape</li>
+<li>Color</li>
+</ul>
+<p>Map the colors of your points to the class variable to reveal the class of each car:</p>
+<h3 id="aesthetic-mappings-mapping"><a class="header" href="#aesthetic-mappings-mapping">Aesthetic Mappings: Mapping</a></h3>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+</code></pre>
+<p align="center">
+  <img src="images/t4/4.png" style="width:70%"/>
+</p>
+<h3 id="aesthetic-mappings-size"><a class="header" href="#aesthetic-mappings-size">Aesthetic Mappings: Size</a></h3>
+<p>Not recommend mapping an unordered variable to an ordered aesthetic:</p>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+</code></pre>
+<p align="center">
+  <img src="images/t4/5.png" style="width:70%"/>
+</p>
+<h3 id="aesthetic-mappings-alpha"><a class="header" href="#aesthetic-mappings-alpha">Aesthetic Mappings: Alpha</a></h3>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+</code></pre>
+<p align="center">
+  <img src="images/t4/6.png" style="width:70%"/>
+</p>
+<h3 id="aesthetic-mappings-shape"><a class="header" href="#aesthetic-mappings-shape">Aesthetic Mappings: Shape</a></h3>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+</code></pre>
+<p align="center">
+  <img src="images/t4/7.png" style="width:70%"/>
+</p>
+<blockquote>
+<p>What happened to the SUVs? ggplot2 will only use six shapes at a time.</p>
+<p>By default, additional groups will go unplotted when you use this aesthetic.</p>
+</blockquote>
+<p>R has 25 built-in shapes that are identified by numbers</p>
+<p align="center">
+  <img src="images/t4/8.png" style="width:70%"/>
+</p>
+<h3 id="aesthetic-mappings-color"><a class="header" href="#aesthetic-mappings-color">Aesthetic Mappings: Color</a></h3>
+<p>For each aesthetic you use, the aes() to associate the name of the aesthetic with a variable to display. The aes() function gathers together each of the aesthetic mappings used by a layer and passes them to the layer’s mapping argument.</p>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), color = &quot;blue&quot;)
+</code></pre>
+<p align="center">
+  <img src="images/t4/9.png" style="width:70%"/>
+</p>
+<blockquote>
+<h2 id="exercise-2"><a class="header" href="#exercise-2">Exercise</a></h2>
+<ul>
+<li>
+<p>Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset.) How can you see this information when you run mpg?</p>
+</li>
+<li>
+<p>Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical versus continuous variables?</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="facets"><a class="header" href="#facets">Facets</a></h2>
+<h3 id="facets-facet_wrap"><a class="header" href="#facets-facet_wrap">Facets: <code>facet_wrap()</code></a></h3>
+<p>The first argument of facet_wrap() should be a formula, which you create with ~ followed by a variable name (here “formula” is the name of a data structure in R, not a synonym for “equation”).
+To facet your plot by a single variable (discrete), use facet_wrap()</p>
+<pre><code class="language-r">ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap( ~ class, nrow = 2)
+</code></pre>
+<h4 id="references-3"><a class="header" href="#references-3">References</a></h4>
+<p>[1] <a href="http://extremepresentation.typepad.com/files/choosing-a-good-chart-09.pdf">Dr. Andrew Abela, Choosing a good chart</a> <br />
+[2] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a> <br />
+[3] <a href="https://vita.had.co.nz/papers/layered-grammar.pdf">Hadley Wickham, A layered grammar of graphics</a><br />
+[4] <a href="https://r-graphics.org/">Winston Chang, R Graphics Cookbook</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-transformation-with-dplyr"><a class="header" href="#data-transformation-with-dplyr">Data Transformation with dplyr</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-wrangling-with-tibbles-readr-and-tidyr"><a class="header" href="#data-wrangling-with-tibbles-readr-and-tidyr">Data wrangling with tibbles, readr and tidyr</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="optional-data-wrangling-with-stringr-forcats"><a class="header" href="#optional-data-wrangling-with-stringr-forcats">(optional) Data Wrangling with stringr, forcats</a></h1>
@@ -1440,6 +1571,22 @@ plot_polished
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
