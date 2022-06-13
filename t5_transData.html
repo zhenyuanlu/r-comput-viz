@@ -148,6 +148,306 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="data-transformation-with-dplyr"><a class="header" href="#data-transformation-with-dplyr">Data Transformation with dplyr</a></h1>
+<p>Often you’ll need to create some new variables or summaries, or maybe you just want to rename the variables or reorder the observations in order to make the data a little easier to work with.</p>
+<pre><code class="language-r"># Needed libraries ----
+library(nycflights13)
+library(dplyr)
+#or ----
+library(tidyverse)
+</code></pre>
+<p align="center">
+  <img src="images/t5/1.png" style="width:100%"/>
+</p>
+<p>The conflict message tells you some of the other functions have been overwrited by Tidyverse. If you want to use the base version of these functions after loading dplyr, you’ll need to use their full names: stats::filter() and stats::lag(),etc.</p>
+<h2 id="search"><a class="header" href="#search"><code>search()</code></a></h2>
+<pre><code class="language-r">search()
+</code></pre>
+<pre><code>##  [1] &quot;.GlobalEnv&quot;           &quot;package:forcats&quot;      &quot;package:stringr&quot;
+##  [4] &quot;package:dplyr&quot;        &quot;package:purrr&quot;        &quot;package:readr&quot;
+##  [7] &quot;package:tidyr&quot;        &quot;package:tibble&quot;       &quot;package:ggplot2&quot;
+## [10] &quot;package:tidyverse&quot;    &quot;package:nycflights13&quot; &quot;package:stats&quot;
+## [13] &quot;package:graphics&quot;     &quot;package:grDevices&quot;    &quot;package:utils&quot;
+## [16] &quot;package:datasets&quot;     &quot;package:methods&quot;      &quot;Autoloads&quot;
+## [19] &quot;package:base&quot;
+</code></pre>
+<p>You may use the full syntax <code>package::function_name()</code> to load the specific function, if there are any overwriting issues occured.</p>
+<h2 id="package-nycflights13"><a class="header" href="#package-nycflights13">Package <code>nycflights13</code></a></h2>
+<p>To explore the basic data manipulation verbs of dplyr, we’ll use nycflights13::flights. This data frame contains all 336,776 flights that departed from New York City in 2013:</p>
+<pre><code class="language-r">head(flights)
+</code></pre>
+<pre><code>## # A tibble: 6 × 19
+##    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+## 1  2013     1     1      517            515         2      830            819
+## 2  2013     1     1      533            529         4      850            830
+## 3  2013     1     1      542            540         2      923            850
+## 4  2013     1     1      544            545        -1     1004           1022
+## 5  2013     1     1      554            600        -6      812            837
+## 6  2013     1     1      554            558        -4      740            728
+## # … with 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
+## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
+## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h3 id="interview-data-with-view"><a class="header" href="#interview-data-with-view">Interview data with <code>view()</code></a></h3>
+<pre><code class="language-r">view(flights)
+</code></pre>
+<p>You might also have noticed the row of three- (or four-) letter abbreviations under the column names. These describe the type of each variable:</p>
+<ul>
+<li><strong>int</strong> stands for integers.</li>
+<li><strong>dbl</strong> stands for doubles, or real numbers.</li>
+<li><strong>chr</strong> stands for character vectors, or strings.</li>
+<li><strong>dttm</strong> stands for date-times (a date + a time).</li>
+</ul>
+<p><strong>Flights actually is a tibble, a special type of <code>data.frame</code>. We will talk about it later.</strong></p>
+<p>There are three other common types of variables that aren’t used in this dataset but you’ll encounter later.</p>
+<ul>
+<li><strong>lgl</strong> stands for logical, vectors that contain only TRUE or FALSE.</li>
+<li><strong>fctr</strong> stands for factors, which R uses to represent categorical variables with fixed possible values.</li>
+<li><strong>date</strong> stands for dates.</li>
+</ul>
+<h2 id="dplyr"><a class="header" href="#dplyr"><code>dplyr</code></a></h2>
+<p>You are going to learn the five key <code>dplyr</code> functions that allow you to solve the vast majority of your data-manipulation challenges:</p>
+<ul>
+<li><code>filter()</code> pick observations by their values .</li>
+<li><code>arrange()</code> Reorder the rows.</li>
+<li><code>select()</code> Pick variables by their names.</li>
+<li><code>mutate()</code> Create new variables with functions of existing variables.</li>
+<li><code>summarize()</code> Collapse many values down to a single summary.</li>
+<li><code>group_by()</code> Conjunction.</li>
+</ul>
+<h3 id="dplyr-grammar"><a class="header" href="#dplyr-grammar"><code>dplyr</code> grammar</a></h3>
+<p>All verbs work similarly: <code>filter(df, argument,...)</code></p>
+<ol>
+<li>The first argument is a data frame.</li>
+<li>The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).</li>
+<li>The result is a new data frame.</li>
+</ol>
+<h3 id="filter"><a class="header" href="#filter"><code>filter()</code></a></h3>
+<h4 id="filter-rows-with-filter"><a class="header" href="#filter-rows-with-filter">Filter rows with <code>filter()</code></a></h4>
+<p>filter() allows you to subset observations based on their values.</p>
+<p>Base function in R:</p>
+<pre><code class="language-r">flights[flights$month==1&amp;flights$day==1,]
+</code></pre>
+<p><code>filter() </code>function in dplyr:</p>
+<pre><code class="language-r">filter(flights, month==1,day==1)
+</code></pre>
+<p>We only want to see the Jan.1st flights</p>
+<pre><code class="language-r">jan &lt;- filter(flights, month==1, day==1)
+jan
+</code></pre>
+<pre><code>## # A tibble: 842 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 832 more rows, and 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,
+## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
+## #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h3 id="filter-rows-with-filter-examples"><a class="header" href="#filter-rows-with-filter-examples">Filter rows with <code>filter()</code>: examples</a></h3>
+<pre><code class="language-r">dec25 &lt;- filter(flights, month == 12, day == 25)
+dec25
+</code></pre>
+<pre><code>## # A tibble: 719 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013    12    25      456            500        -4      649            651
+##  2  2013    12    25      524            515         9      805            814
+##  3  2013    12    25      542            540         2      832            850
+##  4  2013    12    25      546            550        -4     1022           1027
+##  5  2013    12    25      556            600        -4      730            745
+##  6  2013    12    25      557            600        -3      743            752
+##  7  2013    12    25      557            600        -3      818            831
+##  8  2013    12    25      559            600        -1      855            856
+##  9  2013    12    25      559            600        -1      849            855
+## 10  2013    12    25      600            600         0      850            846
+## # … with 709 more rows, and 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,
+## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
+## #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h4 id="filter---comparison"><a class="header" href="#filter---comparison"><code>filter()</code> - comparison</a></h4>
+<p>To use filtering effectively, you have to know how to select the observations that you want using the comparison operators.</p>
+<p>R provides the standard suite: <code>&gt;, &gt;=, &lt;, &lt;=, != (not equal), and == (equal)</code>.</p>
+<p><strong>Flights on Feb~Dec, and before 28 th</strong></p>
+<pre><code class="language-r">filter(flights, month&gt;1&amp;!day&gt;28)
+</code></pre>
+<p><strong>Flights on Feb~Dec, and before 28 th</strong></p>
+<pre><code class="language-r">flights28 &lt;- filter(flights, month&gt;1&amp;!day&gt;28)
+flights28
+</code></pre>
+<pre><code>## # A tibble: 285,972 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013    10     1      447            500       -13      614            648
+##  2  2013    10     1      522            517         5      735            757
+##  3  2013    10     1      536            545        -9      809            855
+##  4  2013    10     1      539            545        -6      801            827
+##  5  2013    10     1      539            545        -6      917            933
+##  6  2013    10     1      544            550        -6      912            932
+##  7  2013    10     1      549            600       -11      653            716
+##  8  2013    10     1      550            600       -10      648            700
+##  9  2013    10     1      550            600       -10      649            659
+## 10  2013    10     1      551            600        -9      727            730
+## # … with 285,962 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<blockquote>
+<h3 id="tips"><a class="header" href="#tips">Tips</a></h3>
+<p>When you’re starting out with R,
+the easiest mistake to make is to use <code>=</code> instead of <code>==</code> when testing for equality.
+When this happens you’ll get an informative error:</p>
+<pre><code class="language-r">filter(flights, month = 1)
+</code></pre>
+<pre><code>## Error in `filter()`:
+## ! We detected a named input.
+## ℹ This usually means that you've used `=` instead of `==`.
+## ℹ Did you mean `month == 1`?
+</code></pre>
+<p>There’s another common problem you might encounter when using <code>==</code>: floating-point numbers.</p>
+<pre><code class="language-r">sqrt(2)^2==2
+</code></pre>
+<pre><code>## [1] FALSE
+</code></pre>
+<pre><code class="language-r">1/49*49==1
+</code></pre>
+<pre><code>## [1] FALSE
+</code></pre>
+<p>Computers use finite precision arithmetic (they obviously can’t store an infinite number of digits!)
+so remember that every number you see is an <strong>approximation</strong>. Instead of relying on <code>==</code>, use n<code>ear()</code>:</p>
+<pre><code class="language-r">near(sqrt(2) ^ 2, 2)
+</code></pre>
+<pre><code>## [1] TRUE
+</code></pre>
+<pre><code class="language-r">near(1 / 49 * 49, 1)
+</code></pre>
+<pre><code>## [1] TRUE
+</code></pre>
+</blockquote>
+<h2 id="logical-operators"><a class="header" href="#logical-operators">Logical operators</a></h2>
+<p align="center">
+  <img src="images/t5/2.png" style="width:80%"/>
+</p>
+<h2 id="nycflights13-flights-on-may-or-june"><a class="header" href="#nycflights13-flights-on-may-or-june">nycflights13: Flights on May or June</a></h2>
+<pre><code class="language-r">mayJune &lt;- filter(flights, month==5|month==6)
+mayJune$month %&gt;% unique()
+</code></pre>
+<pre><code>## [1] 5 6
+</code></pre>
+<blockquote>
+<h3 id="tips-in"><a class="header" href="#tips-in">Tips: %in%</a></h3>
+<p>A useful shorthand for this problem is x %in% y. This will select every row where x is one of the values in y. We could use it to rewrite the preceding code:
+Retrieve the flights information on Jan, Feb, and Mar</p>
+<pre><code class="language-r">filter(flights, month%in%c(1,2,3)) %&gt;% head()
+</code></pre>
+</blockquote>
+<h3 id="-not-equals-to"><a class="header" href="#-not-equals-to"><code>!=</code> not equals to</a></h3>
+<p>Flights not on Feb</p>
+<pre><code class="language-r">filter(flights, month!=2)
+</code></pre>
+<pre><code>## # A tibble: 311,825 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 311,815 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h3 id="--and-"><a class="header" href="#--and-">|, &amp;, and &quot;,&quot;</a></h3>
+<p>Compare the following three code chunks</p>
+<pre><code class="language-r">filter(flights, !(arr_delay &gt; 120 | dep_delay &gt; 120)) %&gt;%
+  select(dep_delay) %&gt;% head(3)
+</code></pre>
+<pre><code class="language-r">filter(flights, arr_delay &lt;= 120, dep_delay &lt;= 120) %&gt;%
+  select(dep_delay) %&gt;% head(3)
+</code></pre>
+<pre><code class="language-r">filter(flights, !arr_delay &gt; 120 &amp; !dep_delay &gt; 120) %&gt;%
+  select(dep_delay) %&gt;% head(3)
+</code></pre>
+<pre><code class="language-r">## # A tibble: 3 × 1
+##   dep_delay
+##       &lt;dbl&gt;
+## 1         2
+## 2         4
+## 3         2
+</code></pre>
+<h3 id="missing-values"><a class="header" href="#missing-values">Missing Values</a></h3>
+<p>One important feature of R that can make comparison tricky is missing values, or NAs (“not availables”).</p>
+<pre><code class="language-r">NA&gt;5
+</code></pre>
+<pre><code>## [1] NA
+</code></pre>
+<pre><code class="language-r">NA==10
+</code></pre>
+<pre><code>## [1] NA
+</code></pre>
+<pre><code class="language-r">NA+10
+</code></pre>
+<pre><code>## [1] NA
+</code></pre>
+<pre><code class="language-r">NA/2
+</code></pre>
+<h2 id="1-na"><a class="header" href="#1-na">[1] NA</a></h2>
+<pre><code>
+### NA==NA
+
+The most confusing result is this one:
+
+```r
+NA==NA
+</code></pre>
+<pre><code>## [1] NA
+</code></pre>
+<p>But we can understand it easily in one example:</p>
+<pre><code class="language-r"># Let ZAge be Zhenyuan's age. We don't know how old he is.
+ZAge &lt;- NA
+# Let TAge be one random Tub's age. We don't know how old they is. (Pretty sure we don't know a random Tub's age...)
+TAge &lt;- NA
+# Are Zhenyuan and Tub the same age?
+ZAge == TAge
+</code></pre>
+<pre><code>## [1] NA
+# We don't know!
+</code></pre>
+<h3 id="na-with-filter"><a class="header" href="#na-with-filter">NA with <code>filter()</code></a></h3>
+<p><code>filter()</code> only includes rows where the condition is TRUE;
+it excludes both FALSE and NA values.
+If you want to preserve missing values, ask for them explicitly:</p>
+<pre><code class="language-r">df &lt;- tibble(x = c(1, NA, 3))
+filter(df, x &gt; 1)
+</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       x
+##   &lt;dbl&gt;
+## 1     3
+</code></pre>
+<pre><code class="language-r">filter(df, is.na(x) | x &gt; 1)
+</code></pre>
+<pre><code>## # A tibble: 2 × 1
+##       x
+##   &lt;dbl&gt;
+## 1    NA
+## 2     3
+</code></pre>
+<h4 id="references"><a class="header" href="#references">References</a></h4>
+<p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a> \</p>
 
                     </main>
 
