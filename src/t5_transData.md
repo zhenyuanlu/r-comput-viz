@@ -99,7 +99,7 @@ All verbs work similarly: `filter(df, argument,...)`
 2. The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).
 3. The result is a new data frame.
 
-### `filter()`
+## `filter()`
 
 #### Filter rows with `filter()`
 
@@ -441,16 +441,294 @@ filter(df, is.na(x) | x > 1)
 ## 2     3
 ```
 
+### Some other functions
+
+```r
+is.na(NA)
+```
+
+```r
+## [1] TRUE
+```
+
+```r
+df <- data.frame(A=c(1,NA,2))
+
+na.omit(df)
+```
+
+```
+##   A
+## 1 1
+## 3 2
+```
+
+```r
+sum(df[,1], na.rm=T)
+```
+
+```
+## [1] 3
+```
+
+> ### Exercise 1
+>
+> Find all flights that:
+> 1. Flew to Houston (IAH)
+>
+> 2. Were operated by United (UA), American (AA), or Delta (DL)
+>
+> 3. Departed in summer (July, August, and September)
+
+> ### Exercise 2
+> Use data set **msleep**, and create a new data frame of mammals with feeding type **carnivore** and brain weight less than the average of brain weight over all mammals. Make sure no NA values in column of brain weight.
+
+## `arrange()`
+
+### Arrange Rows with arrange()
+
+`arrange()` works similarly to `filter()` except that instead of selecting rows, it changes their order
+
+**Base function in R:**
+
+```r
+flights[order(flights$year,flights$month, flights$day, decreasing=F),]
+```
+
+**`arrange()` function in dplyr:**
+
+```r
+arrange(flights, year, month, day)
+```
+
+```
+## # A tibble: 336,776 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+## #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+```
+
+#### Use `desc()` to reorder by a column in descending order
+
+```r
+arrange(flights, desc(arr_delay))
+```
+
+```
+## # A tibble: 336,776 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+##  1  2013     1     9      641            900      1301     1242           1530
+##  2  2013     6    15     1432           1935      1137     1607           2120
+##  3  2013     1    10     1121           1635      1126     1239           1810
+##  4  2013     9    20     1139           1845      1014     1457           2210
+##  5  2013     7    22      845           1600      1005     1044           1815
+##  6  2013     4    10     1100           1900       960     1342           2211
+##  7  2013     3    17     2321            810       911      135           1020
+##  8  2013     7    22     2257            759       898      121           1026
+##  9  2013    12     5      756           1700       896     1058           2020
+## 10  2013     5     3     1133           2055       878     1250           2215
+## # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+## #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+```
 
 
+#### Missing values are always sorted at the end
+
+```r
+df <- data.frame(x = c(5, 2, NA))
+arrange(df, x) #or arrange(df, desc(x))
+```
 
 
+```
+##    x
+## 1  2
+## 2  5
+## 3 NA
+```
+
+> ### Exercises
+> 1. Sort flights to find the most delayed flights. Find the flights that left earliest.
+> 2. Sort flights to find the fastest flights.
 
 
+## `select()`
+
+#### Select Columns with `select()`
+
+`select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
+
+**Base function in R:**
+
+```r
+# Select columns by name
+flights[,c("year","month","day")]
+```
+
+**select() function in dplyr:**
+
+```r
+# Select columns by name
+select(flights, year, month, day)
+```
+
+```
+## # A tibble: 336,776 × 3
+##     year month   day
+##    <int> <int> <int>
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # … with 336,766 more rows
+```
+
+#### Select all colums between year and day
+
+```r
+select(flights, year:day)
+```
+
+```
+## # A tibble: 336,776 × 3
+##     year month   day
+##    <int> <int> <int>
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # … with 336,766 more rows
+```
+
+### Select all columns except those from year to day
+
+```r
+select(flights, -(year:day))
+```
+
+```
+## # A tibble: 336,776 × 16
+##    dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier
+##       <int>          <int>     <dbl>    <int>          <int>     <dbl> <chr>
+##  1      517            515         2      830            819        11 UA
+##  2      533            529         4      850            830        20 UA
+##  3      542            540         2      923            850        33 AA
+##  4      544            545        -1     1004           1022       -18 B6
+##  5      554            600        -6      812            837       -25 DL
+##  6      554            558        -4      740            728        12 UA
+##  7      555            600        -5      913            854        19 B6
+##  8      557            600        -3      709            723       -14 EV
+##  9      557            600        -3      838            846        -8 B6
+## 10      558            600        -2      753            745         8 AA
+## # … with 336,766 more rows, and 9 more variables: flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+## #   minute <dbl>, time_hour <dttm>
+```
 
 
+#### Other arguments within `select()`
+
+There are a number of helper functions you can use within `select()`:
+
+- `starts_with("abc")` matches names that begin with “abc”.
+- `ends_with("xyz")` matches names that end with “xyz”.
+- `contains("ijk")` matches names that contain “ijk”.
+- `matches("^a")` selects variables that match a regular expression. (check **R4DS "regular expressions"**)
+- `num_range("x", 1:3)` matches x1, x2, and x3.
 
 
+#### `select()`: examples
+
+```r
+abc.df <- data.frame(apple=c("b", "c"), an.orange=1:2, orange1=2:3)
+abc.df
+```
+
+```
+##   apple an.orange orange1
+## 1     b         1       2
+## 2     c         2       3
+```
+
+```r
+select(abc.df, starts_with("app"))
+```
+
+```
+##   apple
+## 1     b
+## 2     c
+```
+
+```r
+select(abc.df, ends_with("ge"))
+```
+
+```
+##   an.orange
+## 1         1
+## 2         2
+```
+
+```r
+select(abc.df, contains("pp"))
+```
+
+```
+##   apple
+## 1     b
+## 2     c
+```
+
+```r
+select(abc.df, matches("^a"))
+```
+
+```
+##   apple an.orange
+## 1     b         1
+## 2     c         2
+```
+
+```r
+select(abc.df, num_range("orange", 1))
+```
+
+```
+##   orange1
+## 1       2
+## 2       3
+```
+
+## `mutate()`
+
+#### Add New Variables with mutate()
 
 
 
