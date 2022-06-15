@@ -2158,7 +2158,7 @@ library(tidyverse)
 <li>The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).</li>
 <li>The result is a new data frame.</li>
 </ol>
-<h3 id="filter"><a class="header" href="#filter"><code>filter()</code></a></h3>
+<h2 id="filter"><a class="header" href="#filter"><code>filter()</code></a></h2>
 <h4 id="filter-rows-with-filter"><a class="header" href="#filter-rows-with-filter">Filter rows with <code>filter()</code></a></h4>
 <p>filter() allows you to subset observations based on their values.</p>
 <p>Base function in R:</p>
@@ -2382,6 +2382,217 @@ filter(df, x &gt; 1)
 ## 1    NA
 ## 2     3
 </code></pre>
+<h3 id="some-other-functions"><a class="header" href="#some-other-functions">Some other functions</a></h3>
+<pre><code class="language-r">is.na(NA)
+</code></pre>
+<pre><code class="language-r">## [1] TRUE
+</code></pre>
+<pre><code class="language-r">df &lt;- data.frame(A=c(1,NA,2))
+
+na.omit(df)
+</code></pre>
+<pre><code>##   A
+## 1 1
+## 3 2
+</code></pre>
+<pre><code class="language-r">sum(df[,1], na.rm=T)
+</code></pre>
+<pre><code>## [1] 3
+</code></pre>
+<blockquote>
+<h3 id="exercise-1"><a class="header" href="#exercise-1">Exercise 1</a></h3>
+<p>Find all flights that:</p>
+<ol>
+<li>
+<p>Flew to Houston (IAH)</p>
+</li>
+<li>
+<p>Were operated by United (UA), American (AA), or Delta (DL)</p>
+</li>
+<li>
+<p>Departed in summer (July, August, and September)</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<h3 id="exercise-2"><a class="header" href="#exercise-2">Exercise 2</a></h3>
+<p>Use data set <strong>msleep</strong>, and create a new data frame of mammals with feeding type <strong>carnivore</strong> and brain weight less than the average of brain weight over all mammals. Make sure no NA values in column of brain weight.</p>
+</blockquote>
+<h2 id="arrange"><a class="header" href="#arrange"><code>arrange()</code></a></h2>
+<h3 id="arrange-rows-with-arrange"><a class="header" href="#arrange-rows-with-arrange">Arrange Rows with arrange()</a></h3>
+<p><code>arrange()</code> works similarly to <code>filter()</code> except that instead of selecting rows, it changes their order</p>
+<p><strong>Base function in R:</strong></p>
+<pre><code class="language-r">flights[order(flights$year,flights$month, flights$day, decreasing=F),]
+</code></pre>
+<p><strong><code>arrange()</code> function in dplyr:</strong></p>
+<pre><code class="language-r">arrange(flights, year, month, day)
+</code></pre>
+<pre><code>## # A tibble: 336,776 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h4 id="use-desc-to-reorder-by-a-column-in-descending-order"><a class="header" href="#use-desc-to-reorder-by-a-column-in-descending-order">Use <code>desc()</code> to reorder by a column in descending order</a></h4>
+<pre><code class="language-r">arrange(flights, desc(arr_delay))
+</code></pre>
+<pre><code>## # A tibble: 336,776 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1     9      641            900      1301     1242           1530
+##  2  2013     6    15     1432           1935      1137     1607           2120
+##  3  2013     1    10     1121           1635      1126     1239           1810
+##  4  2013     9    20     1139           1845      1014     1457           2210
+##  5  2013     7    22      845           1600      1005     1044           1815
+##  6  2013     4    10     1100           1900       960     1342           2211
+##  7  2013     3    17     2321            810       911      135           1020
+##  8  2013     7    22     2257            759       898      121           1026
+##  9  2013    12     5      756           1700       896     1058           2020
+## 10  2013     5     3     1133           2055       878     1250           2215
+## # … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h4 id="missing-values-are-always-sorted-at-the-end"><a class="header" href="#missing-values-are-always-sorted-at-the-end">Missing values are always sorted at the end</a></h4>
+<pre><code class="language-r">df &lt;- data.frame(x = c(5, 2, NA))
+arrange(df, x) #or arrange(df, desc(x))
+</code></pre>
+<pre><code>##    x
+## 1  2
+## 2  5
+## 3 NA
+</code></pre>
+<blockquote>
+<h3 id="exercises"><a class="header" href="#exercises">Exercises</a></h3>
+<ol>
+<li>Sort flights to find the most delayed flights. Find the flights that left earliest.</li>
+<li>Sort flights to find the fastest flights.</li>
+</ol>
+</blockquote>
+<h2 id="select"><a class="header" href="#select"><code>select()</code></a></h2>
+<h4 id="select-columns-with-select"><a class="header" href="#select-columns-with-select">Select Columns with <code>select()</code></a></h4>
+<p><code>select()</code> allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.</p>
+<p><strong>Base function in R:</strong></p>
+<pre><code class="language-r"># Select columns by name
+flights[,c(&quot;year&quot;,&quot;month&quot;,&quot;day&quot;)]
+</code></pre>
+<p><strong>select() function in dplyr:</strong></p>
+<pre><code class="language-r"># Select columns by name
+select(flights, year, month, day)
+</code></pre>
+<pre><code>## # A tibble: 336,776 × 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # … with 336,766 more rows
+</code></pre>
+<h4 id="select-all-colums-between-year-and-day"><a class="header" href="#select-all-colums-between-year-and-day">Select all colums between year and day</a></h4>
+<pre><code class="language-r">select(flights, year:day)
+</code></pre>
+<pre><code>## # A tibble: 336,776 × 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # … with 336,766 more rows
+</code></pre>
+<h3 id="select-all-columns-except-those-from-year-to-day"><a class="header" href="#select-all-columns-except-those-from-year-to-day">Select all columns except those from year to day</a></h3>
+<pre><code class="language-r">select(flights, -(year:day))
+</code></pre>
+<pre><code>## # A tibble: 336,776 × 16
+##    dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier
+##       &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;
+##  1      517            515         2      830            819        11 UA
+##  2      533            529         4      850            830        20 UA
+##  3      542            540         2      923            850        33 AA
+##  4      544            545        -1     1004           1022       -18 B6
+##  5      554            600        -6      812            837       -25 DL
+##  6      554            558        -4      740            728        12 UA
+##  7      555            600        -5      913            854        19 B6
+##  8      557            600        -3      709            723       -14 EV
+##  9      557            600        -3      838            846        -8 B6
+## 10      558            600        -2      753            745         8 AA
+## # … with 336,766 more rows, and 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h4 id="other-arguments-within-select"><a class="header" href="#other-arguments-within-select">Other arguments within <code>select()</code></a></h4>
+<p>There are a number of helper functions you can use within <code>select()</code>:</p>
+<ul>
+<li><code>starts_with(&quot;abc&quot;)</code> matches names that begin with “abc”.</li>
+<li><code>ends_with(&quot;xyz&quot;)</code> matches names that end with “xyz”.</li>
+<li><code>contains(&quot;ijk&quot;)</code> matches names that contain “ijk”.</li>
+<li><code>matches(&quot;^a&quot;)</code> selects variables that match a regular expression. (check <strong>R4DS &quot;regular expressions&quot;</strong>)</li>
+<li><code>num_range(&quot;x&quot;, 1:3)</code> matches x1, x2, and x3.</li>
+</ul>
+<h4 id="select-examples"><a class="header" href="#select-examples"><code>select()</code>: examples</a></h4>
+<pre><code class="language-r">abc.df &lt;- data.frame(apple=c(&quot;b&quot;, &quot;c&quot;), an.orange=1:2, orange1=2:3)
+abc.df
+</code></pre>
+<pre><code>##   apple an.orange orange1
+## 1     b         1       2
+## 2     c         2       3
+</code></pre>
+<pre><code class="language-r">select(abc.df, starts_with(&quot;app&quot;))
+</code></pre>
+<pre><code>##   apple
+## 1     b
+## 2     c
+</code></pre>
+<pre><code class="language-r">select(abc.df, ends_with(&quot;ge&quot;))
+</code></pre>
+<pre><code>##   an.orange
+## 1         1
+## 2         2
+</code></pre>
+<pre><code class="language-r">select(abc.df, contains(&quot;pp&quot;))
+</code></pre>
+<pre><code>##   apple
+## 1     b
+## 2     c
+</code></pre>
+<pre><code class="language-r">select(abc.df, matches(&quot;^a&quot;))
+</code></pre>
+<pre><code>##   apple an.orange
+## 1     b         1
+## 2     c         2
+</code></pre>
+<pre><code class="language-r">select(abc.df, num_range(&quot;orange&quot;, 1))
+</code></pre>
+<pre><code>##   orange1
+## 1       2
+## 2       3
+</code></pre>
+<h2 id="mutate"><a class="header" href="#mutate"><code>mutate()</code></a></h2>
+<h4 id="add-new-variables-with-mutate"><a class="header" href="#add-new-variables-with-mutate">Add New Variables with mutate()</a></h4>
 <h4 id="references-4"><a class="header" href="#references-4">References</a></h4>
 <p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a> \</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-wrangling-with-tibbles-readr-and-tidyr"><a class="header" href="#data-wrangling-with-tibbles-readr-and-tidyr">Data wrangling with tibbles, readr and tidyr</a></h1>
