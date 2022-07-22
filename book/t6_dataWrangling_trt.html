@@ -148,6 +148,665 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="data-wrangling-with-tibbles-readr-and-tidyr"><a class="header" href="#data-wrangling-with-tibbles-readr-and-tidyr">Data wrangling with tibbles, readr and tidyr</a></h1>
+<h2 id="where-are-we-probability-08"><a class="header" href="#where-are-we-probability-08">Where are we (probability 0.8)</a></h2>
+<p align="center">
+  <img src="images/t6/seriousModel.png" style="width:100%"/>
+</p>
+<h2 id="tibbles-with-tibble"><a class="header" href="#tibbles-with-tibble">Tibbles with tibble</a></h2>
+<h3 id="tibble-and-prerequisites"><a class="header" href="#tibble-and-prerequisites">Tibble and Prerequisites</a></h3>
+<p>Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors).</p>
+<pre><code class="language-r">library(tidyverse)
+#or
+library(tibble)
+</code></pre>
+<blockquote>
+<h3 id="packagesbooks-authors"><a class="header" href="#packagesbooks-authors">Packages/Books Authors</a></h3>
+<p>Dr. Hadley Wickham</p>
+<ul>
+<li>Chief Scientist at RStudio,</li>
+<li>Adjunct Professor of Statistics at University of Auckland, Stanford University, and Rice University</li>
+<li>Books: <strong>R for Data Science</strong>, <strong>Advanced R</strong>, <strong>R packages</strong></li>
+<li>Packages: <strong>tidyverse</strong>, <strong>devtools</strong>, <strong>pkgdown</strong></li>
+</ul>
+<p>Dr. Yihui Xie</p>
+<ul>
+<li>SDE at RStudio</li>
+<li>Packages: <strong>knitr</strong>, <strong>rmarkdown</strong>, <strong>shiny</strong>, <strong>tinytex</strong>, <strong>bookdown</strong>, <strong>DT</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="tips"><a class="header" href="#tips">Tips</a></h3>
+<p>If you wanted to learn more about the packages from tidyverse, you may try</p>
+<pre><code class="language-r">  vignette(&quot;tibble&quot;)
+  vignette(&quot;ggplot2-specs&quot;)
+</code></pre>
+<p>Pronounce [vin'jet]</p>
+</blockquote>
+<h3 id="creating-tibbles"><a class="header" href="#creating-tibbles">Creating tibbles</a></h3>
+<p><code>tibble()</code> is a nice way to create data frames. It encapsulates best practices for data frames:</p>
+<pre><code class="language-r">tibble(letter=c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;), number=c(1:3))
+</code></pre>
+<pre><code>## # A tibble: 3 × 2
+##   letter number
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 a           1
+## 2 b           2
+## 3 c           3
+</code></pre>
+<h3 id="convert-the-data-frame-into-tibble-version-of-data-frame"><a class="header" href="#convert-the-data-frame-into-tibble-version-of-data-frame">Convert the data frame into tibble version of data frame</a></h3>
+<p>You can do that with <code>as_tibble()</code>:</p>
+<pre><code class="language-r">irisTibble &lt;- as_tibble(iris)
+class(irisTibble)
+</code></pre>
+<h3 id="adjust-the-names-of-variables"><a class="header" href="#adjust-the-names-of-variables">Adjust the names of variables</a></h3>
+<p><code>data.frame()</code> will adjust the name of variables, unless overwrite check.names=F</p>
+<pre><code class="language-r">data.frame(`a b`=c(1:3))
+</code></pre>
+<pre><code>##   a.b
+## 1   1
+## 2   2
+## 3   3
+</code></pre>
+<pre><code class="language-r">data.frame(`a b`=c(1:3), check.names = F)
+</code></pre>
+<pre><code>##   a b
+## 1   1
+## 2   2
+## 3   3
+</code></pre>
+<h3 id="tibble-never-adjusts-the-name-of-variables"><a class="header" href="#tibble-never-adjusts-the-name-of-variables"><code>tibble()</code> never adjusts the name of variables</a></h3>
+<pre><code class="language-r">tibble(`a b`=c(1:3))
+</code></pre>
+<pre><code>## # A tibble: 3 × 1
+##   `a b`
+##   &lt;int&gt;
+## 1     1
+## 2     2
+## 3     3
+</code></pre>
+<h3 id="tibble-never-adjusts-the-name-of-variables-nonsyntactic-names"><a class="header" href="#tibble-never-adjusts-the-name-of-variables-nonsyntactic-names"><code>tibble()</code> never adjusts the name of variables: Nonsyntactic names</a></h3>
+<p>It’s possible for a tibble to have column names that are not valid R variable names, aka nonsyntactic names.</p>
+<pre><code class="language-r">data.frame(
+  `:(` = &quot;unhappy&quot;,
+  ` ` = &quot;space&quot;,
+  `2000` = &quot;number&quot;
+)
+</code></pre>
+<pre><code>##       X..    X.  X2000
+## 1 unhappy space number
+</code></pre>
+<pre><code class="language-r">tibble(
+  `:(` = &quot;unhappy&quot;,
+  ` ` = &quot;space&quot;,
+  `2000` = &quot;number&quot;
+)
+</code></pre>
+<pre><code>## # A tibble: 1 × 3
+##   `:(`    ` `   `2000`
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;
+## 1 unhappy space number
+</code></pre>
+<h3 id="arguments"><a class="header" href="#arguments">Arguments</a></h3>
+<pre><code class="language-r">tibble(x=1:3,
+       y=x^2)
+</code></pre>
+<pre><code>## # A tibble: 3 × 2
+##       x     y
+##   &lt;int&gt; &lt;dbl&gt;
+## 1     1     1
+## 2     2     4
+## 3     3     9
+</code></pre>
+<h3 id="creating-with-tribble"><a class="header" href="#creating-with-tribble">Creating with <code>tribble()</code></a></h3>
+<p>Another way to create a tibble is with tribble(), short for transposed tibble. tribble() is customized for data entry in code: column headings are defined by formulas (i.e., they start with ~), and entries are separated by commas. This makes it possible to lay out small amounts of data in easy-to-read form:</p>
+<pre><code class="language-r">tribble(~x, ~y, ~z,
+        &quot;a&quot;, 1, 3.5,
+        &quot;b&quot;, 2, 3)
+</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   x         y     z
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 a         1   3.5
+## 2 b         2   3
+</code></pre>
+<h2 id="data-import-with-readr"><a class="header" href="#data-import-with-readr">Data import with <code>readr</code></a></h2>
+<p>readr and prerequisites</p>
+<p>Here we will only introduce the most common function from the readr package <code>read_csv()</code></p>
+<pre><code class="language-r">library(tidyverse)
+#or
+library(readr)
+</code></pre>
+<h3 id="compared-to-the-base-r-function-readcsv"><a class="header" href="#compared-to-the-base-r-function-readcsv">Compared to the Base R function read.csv()</a></h3>
+<ul>
+<li>They are typically much faster (~10x)</li>
+<li>They produce tibbles, and they don’t convert character vectors to factors, use row names, or munge the column names.</li>
+<li>They are more reproducible.</li>
+</ul>
+<h3 id="reading-csv-with-read_csv"><a class="header" href="#reading-csv-with-read_csv">Reading csv with <code>read_csv()</code></a></h3>
+<pre><code class="language-r">df1 &lt;-
+  read_csv(
+    &quot;https://gist.githubusercontent.com/omarish/5687264/raw/7e5c814ce6ef33e25d5259c1fe79463c190800d9/mpg.csv&quot;
+  )
+df2 &lt;- read_csv(readr_example(&quot;mtcars.csv&quot;))
+</code></pre>
+<pre><code class="language-r">df1 &lt;-
+  read_csv(
+    &quot;https://gist.githubusercontent.com/omarish/5687264/raw/7e5c814ce6ef33e25d5259c1fe79463c190800d9/mpg.csv&quot;
+  )
+</code></pre>
+<pre><code>## Rows: 398 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): horsepower, name
+## dbl (7): mpg, cylinders, displacement, weight, acceleration, model_year, origin
+##
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre>
+<pre><code class="language-r">df1
+</code></pre>
+<pre><code>## # A tibble: 398 × 9
+##      mpg cylinders displacement horsepower weight acceleration model_year origin
+##    &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+##  1    18         8          307 130          3504         12           70      1
+##  2    15         8          350 165          3693         11.5         70      1
+##  3    18         8          318 150          3436         11           70      1
+##  4    16         8          304 150          3433         12           70      1
+##  5    17         8          302 140          3449         10.5         70      1
+##  6    15         8          429 198          4341         10           70      1
+##  7    14         8          454 220          4354          9           70      1
+##  8    14         8          440 215          4312          8.5         70      1
+##  9    14         8          455 225          4425         10           70      1
+## 10    15         8          390 190          3850          8.5         70      1
+## # … with 388 more rows, and 1 more variable: name &lt;chr&gt;
+</code></pre>
+<pre><code class="language-r">df2 &lt;- read_csv(readr_example(&quot;mtcars.csv&quot;))
+</code></pre>
+<pre><code>## Rows: 32 Columns: 11
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
+##
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre>
+<pre><code class="language-r">df2
+</code></pre>
+<pre><code>## # A tibble: 32 × 11
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # … with 22 more rows
+</code></pre>
+<h3 id="like-tribble-inline-input-is-also-accepted"><a class="header" href="#like-tribble-inline-input-is-also-accepted">Like <code>tribble()</code>, inline input is also accepted.</a></h3>
+<pre><code class="language-r">read_csv(&quot;x, y, z
+         1, 1, 1
+         2, 2, 2&quot;)
+</code></pre>
+<pre><code>## Rows: 2 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (3): x, y, z
+##
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## # A tibble: 2 × 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     1     1
+## 2     2     2     2
+</code></pre>
+<h3 id="replace-values-with-na"><a class="header" href="#replace-values-with-na">Replace values with NA</a></h3>
+<pre><code class="language-r">read_csv(&quot;x, y, z
+         1, 1, 1
+         2, 2, 2&quot;, na=&quot;1&quot;)
+</code></pre>
+<pre><code>## Rows: 2 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (3): x, y, z
+##
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## # A tibble: 2 × 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1    NA    NA    NA
+## 2     2     2     2
+</code></pre>
+<h3 id="lets-recall-the-example-of-h1b-data-in-hw2"><a class="header" href="#lets-recall-the-example-of-h1b-data-in-hw2">Let's recall the example of h1b data in hw2</a></h3>
+<p>When we use the base function read.csv, the parse of data types may be wrong:</p>
+<pre><code class="language-r">h1b19 &lt;-
+  read.csv(&quot;E:/IE6600/materials/assignment/hw/hw2/h1b_datahubexport-2019.csv&quot;)
+sapply(h1b19[, 3:6], class)
+</code></pre>
+<pre><code>##    Initial.Approvals      Initial.Denials Continuing.Approvals
+##          &quot;character&quot;          &quot;character&quot;          &quot;character&quot;
+##   Continuing.Denials
+##          &quot;character&quot;
+</code></pre>
+<h3 id="guess_max"><a class="header" href="#guess_max"><code>guess_max</code></a></h3>
+<p>The default guesses are only for the first 1000 rows. Sometimes, 1000 rows may not be enough for <code>read_csv()</code> to parse the column specification. We could use guess_max= to increase the guessing rows.</p>
+<pre><code class="language-r">chg &lt;- read_csv(readr_example(&quot;challenge.csv&quot;))
+</code></pre>
+<pre><code>## Rows: 2000 Columns: 2
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl  (1): x
+## date (1): y
+##
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre>
+<pre><code class="language-r">adj.chg&lt;- read_csv(readr_example(&quot;challenge.csv&quot;), guess_max = 1500)
+</code></pre>
+<p>Compared to default read.csv</p>
+<pre><code class="language-r">adj.chg2&lt;- read.csv(readr_example(&quot;challenge.csv&quot;))
+class(adj.chg2$y[1])
+</code></pre>
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+<pre><code class="language-r">class(adj.chg$y[1])
+</code></pre>
+<pre><code>## [1] &quot;Date&quot;
+</code></pre>
+<h3 id="two-cases-12"><a class="header" href="#two-cases-12">Two cases 1/2</a></h3>
+<p>Sometimes there are a few lines of metadata at the top of the file. You can use <code>skip = n</code> to skip the first n lines; or use <code>comment = &quot;#&quot;</code> to drop all lines that start with (e.g.) #:</p>
+<pre><code class="language-r">read_csv(&quot;# A comment I want to skip
+  x,y,z
+  1,2,3&quot;, comment = &quot;#&quot;)
+</code></pre>
+<pre><code>## Rows: 1 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (3): x, y, z
+##
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## # A tibble: 1 × 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+</code></pre>
+<h3 id="two-cases-22"><a class="header" href="#two-cases-22">Two cases 2/2</a></h3>
+<p>The data might not have column names. You can use <code>col_names = FALSE</code> to tell <code>read_csv()</code> not to treat the first row as headings, and instead label them sequentially from X1 to Xn:</p>
+<pre><code class="language-r">read_csv(&quot;1,2,3\n4,5,6&quot;, col_names = FALSE)
+</code></pre>
+<pre><code>## Rows: 2 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (3): X1, X2, X3
+##
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## # A tibble: 2 × 3
+##      X1    X2    X3
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5     6
+</code></pre>
+<pre><code class="language-r">read_csv(&quot;1,2,3\n4,5,6&quot;,col_names = c(&quot;x&quot;, &quot;y&quot;, &quot;z&quot;))
+</code></pre>
+<h3 id="writing-csv-with-write_csv"><a class="header" href="#writing-csv-with-write_csv">Writing csv with <code>write_csv()</code></a></h3>
+<p>The default syntax:</p>
+<pre><code class="language-r">  write_csv(yourDataName, &quot;yourLocation/yourCSVname.csv&quot;)
+</code></pre>
+<h2 id="tidy-data-with-tidyr"><a class="header" href="#tidy-data-with-tidyr">Tidy data with tidyr</a></h2>
+<p>Prerequisites</p>
+<p>In this chapter we’ll focus on <strong>tidyr</strong>, a package that provides a bunch of tools to help tidy up your messy datasets. <strong>tidyr</strong> is a member of the core tidyverse.</p>
+<pre><code class="language-r">library(tidyr)
+#or
+library(tidyverse)
+</code></pre>
+<p>Five data tables we will use from the packages tidyverse:</p>
+<p><strong>table1</strong>, <strong>table2</strong>, <strong>table3</strong>, <strong>table4a</strong>, <strong>table4b</strong></p>
+<h3 id="what-is-tidy-data"><a class="header" href="#what-is-tidy-data">What is tidy data?</a></h3>
+<p>There are three interrelated rules which make a dataset tidy:</p>
+<ul>
+<li>Each variable must have its own column.</li>
+<li>Each observation must have its own row.</li>
+<li>Each value must have its own cell.</li>
+</ul>
+<p align="center">
+  <img src="images/t6/tidyData.png" style="width:100%"/>
+</p>
+<h3 id="what-do-you-think-of-this-data-tidy"><a class="header" href="#what-do-you-think-of-this-data-tidy">What do you think of this data? Tidy?</a></h3>
+<pre><code>## # A tibble: 12 × 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583
+</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country      year rate
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;
+## 1 Afghanistan  1999 745/19987071
+## 2 Afghanistan  2000 2666/20595360
+## 3 Brazil       1999 37737/172006362
+## 4 Brazil       2000 80488/174504898
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583
+</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766
+</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   country         `1999`     `2000`
+## * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan   19987071   20595360
+## 2 Brazil       172006362  174504898
+## 3 China       1272915272 1280428583
+</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country     century year  rate
+## * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;
+## 1 Afghanistan 19      99    745/19987071
+## 2 Afghanistan 20      00    2666/20595360
+## 3 Brazil      19      99    37737/172006362
+## 4 Brazil      20      00    80488/174504898
+## 5 China       19      99    212258/1272915272
+## 6 China       20      00    213766/1280428583
+</code></pre>
+<h3 id="why-ensure-that-your-data-is-tidy"><a class="header" href="#why-ensure-that-your-data-is-tidy">Why ensure that your data is tidy?</a></h3>
+<ul>
+<li>Picking one consistent way of storing data.</li>
+<li>Placing variables in columns is intuitively and computationally efficient</li>
+</ul>
+<h3 id="spreading-and-gathering"><a class="header" href="#spreading-and-gathering">Spreading and Gathering</a></h3>
+<p>The tidyr packages is one part of the tidyverse To resolve one of the two common problems when dealing with datasets:</p>
+<ul>
+<li>One variable might be spread across multiple columns.</li>
+<li>One observation might be scattered across multiple rows.</li>
+<li></li>
+</ul>
+<p>We need to use <code>gather()</code> and <code>spread()</code> from tidyr</p>
+<h3 id="gathering"><a class="header" href="#gathering">Gathering</a></h3>
+<p>A common problem is a dataset where some of the column names are not names of variables, but values of a variable</p>
+<pre><code>table4a
+## # A tibble: 3 × 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766
+</code></pre>
+<pre><code class="language-r">table4a %&gt;%
+  gather(&quot;1999&quot;, &quot;2000&quot;, key=&quot;year&quot;, value=&quot;cases&quot;)
+</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country     year   cases
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+## 1 Afghanistan 1999     745
+## 2 Brazil      1999   37737
+## 3 China       1999  212258
+## 4 Afghanistan 2000    2666
+## 5 Brazil      2000   80488
+## 6 China       2000  213766
+</code></pre>
+<p align="center">
+  <img src="images/t6/table4a.jpg" style="width:80%"/>
+</p>
+<blockquote>
+<h3 id="exercise"><a class="header" href="#exercise">Exercise</a></h3>
+<p>use <code>gather()</code> to make table4b tidy</p>
+<pre><code class="language-r">table4b
+</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   country         `1999`     `2000`
+## * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan   19987071   20595360
+## 2 Brazil       172006362  174504898
+## 3 China       1272915272 1280428583
+</code></pre>
+<p><strong>Solution</strong>:</p>
+<pre><code class="language-r">table4b %&gt;% gather(&quot;1999&quot;, &quot;2000&quot;, key=&quot;year&quot;, value=&quot;population&quot;)
+</code></pre>
+</blockquote>
+<h3 id="spreading"><a class="header" href="#spreading">Spreading</a></h3>
+<p>Spreading is the opposite of gathering. You use it when an observation is scattered across multiple rows.</p>
+<pre><code class="language-r">table2
+</code></pre>
+<pre><code>## # A tibble: 12 × 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583
+</code></pre>
+<pre><code class="language-r">table2 %&gt;%
+  spread(key=type, value=count)
+</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+</code></pre>
+<p align="center">
+  <img src="images/t6/table2.png" style="width:80%"/>
+</p>
+<blockquote>
+<h2 id="exercise-i"><a class="header" href="#exercise-i">Exercise I</a></h2>
+<p>Use <code>tribble()</code> or <code>tibble()</code> create a data table as follows:</p>
+<pre><code>## # A tibble: 2 × 3
+##   pregnant  male female
+##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 yes         NA     10
+## 2 no          20     12
+</code></pre>
+<p>Then make it tidy.</p>
+<p><strong>Solution</strong>:</p>
+<pre><code class="language-r">tribble(~pregnant, ~male, ~female,
+        &quot;yes&quot;, NA, 10,
+        &quot;no&quot;, 20, 12
+) %&gt;%
+  gather(male, female, key=&quot;gender&quot;, value=&quot;pop&quot;)
+</code></pre>
+</blockquote>
+<blockquote>
+<h2 id="exercise-ii"><a class="header" href="#exercise-ii">Exercise II</a></h2>
+<p>Use tribble() or tibble() create a data table as follows:</p>
+<pre><code>## # A tibble: 6 × 3
+##   person index      number
+##   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;
+## 1 A      weight(kg)   52.5
+## 3 C      weight(kg)   54.6
+## 4 A      height(cm)  179.
+## 5 B      height(cm)  171.
+## 6 C      height(cm)  173.
+</code></pre>
+<p>Then make it tidy.</p>
+<p><strong>Solution</strong>:</p>
+<pre><code class="language-r">tibble(person=rep(c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;),2),
+       index=c(rep(&quot;weight(kg)&quot;,3),rep(&quot;height(cm)&quot;,3)),
+       number=rd) %&gt;%
+  spread(key=index, value=number)
+</code></pre>
+</blockquote>
+<h3 id="separating-and-pull"><a class="header" href="#separating-and-pull">Separating and Pull</a></h3>
+<p>So far you’ve learned how to tidy table2 and table4, but not table3. table3 has a different problem: we have one column (rate) that contains two variables (cases and population). To fix this problem, we’ll need the <code>separate()</code> function.</p>
+<h3 id="separate"><a class="header" href="#separate">Separate</a></h3>
+<p><code>separate()</code> pulls apart one column into multiple columns, by splitting wherever a separator character appears.</p>
+<pre><code class="language-r">table3
+</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country      year rate
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;
+## 1 Afghanistan  1999 745/19987071
+## 2 Afghanistan  2000 2666/20595360
+## 3 Brazil       1999 37737/172006362
+## 4 Brazil       2000 80488/174504898
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583
+</code></pre>
+<pre><code class="language-r">table3 %&gt;%
+  separate(rate, into=c(&quot;cases&quot;,&quot;population&quot;))
+</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country      year cases  population
+##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;
+## 1 Afghanistan  1999 745    19987071
+## 2 Afghanistan  2000 2666   20595360
+## 3 Brazil       1999 37737  172006362
+## 4 Brazil       2000 80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+</code></pre>
+<p align="center">
+  <img src="images/t6/table3.png" style="width:80%"/>
+</p>
+<p>By default, separate() will split values wherever it sees a nonalphanumeric character (i.e., a character that isn’t a number or letter).</p>
+<pre><code class="language-r">table3 %&gt;%
+  separate(rate, into=c(&quot;cases&quot;,&quot;population&quot;), sep=&quot;/&quot;)
+</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country      year cases  population
+##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;
+## 1 Afghanistan  1999 745    19987071
+## 2 Afghanistan  2000 2666   20595360
+## 3 Brazil       1999 37737  172006362
+## 4 Brazil       2000 80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+</code></pre>
+<h3 id="did-you-find-the-problems"><a class="header" href="#did-you-find-the-problems">Did you find the problem/s?</a></h3>
+<pre><code>## # A tibble: 6 × 4
+##   country      year cases  population
+##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;
+## 1 Afghanistan  1999 745    19987071
+## 2 Afghanistan  2000 2666   20595360
+## 3 Brazil       1999 37737  172006362
+## 4 Brazil       2000 80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+</code></pre>
+<h3 id="convert-the-separated-columns-into-correct-data-type"><a class="header" href="#convert-the-separated-columns-into-correct-data-type">Convert the separated columns into correct data type</a></h3>
+<p>We can ask <code>separate() </code>to try and convert to better types using convert = TRUE:</p>
+<pre><code class="language-r">table3 %&gt;%
+  separate(
+    rate,
+    into = c(&quot;cases&quot;, &quot;population&quot;),
+    convert = TRUE
+)
+</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583
+</code></pre>
+<h3 id="unite"><a class="header" href="#unite">Unite</a></h3>
+<p><code>unite()</code> is the inverse of <code>separate()</code>: it combines multiple columns into a single column.</p>
+<pre><code class="language-r">table5
+</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country     century year  rate
+## * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;
+## 1 Afghanistan 19      99    745/19987071
+## 2 Afghanistan 20      00    2666/20595360
+## 3 Brazil      19      99    37737/172006362
+## 4 Brazil      20      00    80488/174504898
+## 5 China       19      99    212258/1272915272
+## 6 China       20      00    213766/1280428583
+</code></pre>
+<pre><code class="language-r">table5 %&gt;%
+  unite(new, century, year)
+</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country     new   rate
+##   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;
+## 1 Afghanistan 19_99 745/19987071
+## 2 Afghanistan 20_00 2666/20595360
+## 3 Brazil      19_99 37737/172006362
+## 4 Brazil      20_00 80488/174504898
+## 5 China       19_99 212258/1272915272
+## 6 China       20_00 213766/1280428583
+</code></pre>
+<p align="center">
+  <img src="images/t6/table5.png" style="width:80%"/>
+</p>
+<p>The default will place an underscore (_) between the values from different columns. Here we don’t want any separator so we use &quot;&quot;:</p>
+<pre><code class="language-r">table5 %&gt;%
+  unite(new, century, year, sep=&quot;&quot;)
+</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country     new   rate
+##   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;
+## 1 Afghanistan 1999  745/19987071
+## 2 Afghanistan 2000  2666/20595360
+## 3 Brazil      1999  37737/172006362
+## 4 Brazil      2000  80488/174504898
+## 5 China       1999  212258/1272915272
+## 6 China       2000  213766/1280428583
+</code></pre>
+<blockquote>
+<h2 id="exercise-1"><a class="header" href="#exercise-1">Exercise</a></h2>
+<ul>
+<li>Selecting year, month, flight, and tailnum columns from nycflights13::flights dataset.</li>
+<li>Combining year, and month with separator / in a new column, date.</li>
+<li>Then count the number of oberservations for each date, and sort by desc</li>
+</ul>
+<p><strong>Solution</strong>:</p>
+<pre><code class="language-r"># use count() or group_by() with summarise() to
+# count the number of oberservations for each `date`
+flights %&gt;%
+  select(year, month, flight, tailnum) %&gt;%
+  unite(date, year, month, sep=&quot;/&quot;) %&gt;%
+  count(date, sort=T)
+</code></pre>
+</blockquote>
+<h4 id="references"><a class="header" href="#references">References</a></h4>
+<p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a></p>
 
                     </main>
 
@@ -178,22 +837,6 @@
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 

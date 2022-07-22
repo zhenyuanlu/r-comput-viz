@@ -733,4 +733,4 @@ select(abc.df, num_range("orange", 1))
 
 
 #### References
-[1] [Hadley Wickham, Garrett Grolemund. R For Data Science.](https://r4ds.had.co.nz/) \
+[1] [Hadley Wickham, Garrett Grolemund. R For Data Science.](https://r4ds.had.co.nz/)
