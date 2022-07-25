@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Home</a></li><li class="chapter-item expanded affix "><a href="dis.html">Disclaimer</a></li><li class="chapter-item expanded affix "><a href="faq.html">FAQ for the class</a></li><li class="chapter-item expanded "><a href="t1_basicR.html"><strong aria-hidden="true">1.</strong> Basic of R</a></li><li class="chapter-item expanded "><a href="t2_func.html"><strong aria-hidden="true">2.</strong> R Functions</a></li><li class="chapter-item expanded "><a href="t3_gramar.html"><strong aria-hidden="true">3.</strong> The Grammar of Graphics</a></li><li class="chapter-item expanded "><a href="t4_basicViz.html"><strong aria-hidden="true">4.</strong> Basic Data Visualization in R</a></li><li class="chapter-item expanded "><a href="t5_transData.html"><strong aria-hidden="true">5.</strong> Data Transformation with dplyr</a></li><li class="chapter-item expanded "><a href="t6_dataWrangling_trt.html"><strong aria-hidden="true">6.</strong> Data Wrangling with tibbles, readr and tidyr</a></li><li class="chapter-item expanded "><a href="t7_dataWrangling_sf.html"><strong aria-hidden="true">7.</strong> (optional) Data Wrangling with stringr, forcats</a></li><li class="chapter-item expanded "><a href="t8_relational.html"><strong aria-hidden="true">8.</strong> Visualizing Relational Data</a></li><li class="chapter-item expanded "><a href="t9_shiny.html"><strong aria-hidden="true">9.</strong> Introduction to Shiny</a></li><li class="chapter-item expanded "><a href="t10_eda.html"><strong aria-hidden="true">10.</strong> Exploratory Data Analysis and More Data Visualization</a></li><li class="chapter-item expanded "><a href="additional.html"><strong aria-hidden="true">11.</strong> Additional R Workshop</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Home</a></li><li class="chapter-item expanded affix "><a href="dis.html">Disclaimer</a></li><li class="chapter-item expanded affix "><a href="faq.html">FAQ for the class</a></li><li class="chapter-item expanded "><a href="t1_basicR.html"><strong aria-hidden="true">1.</strong> Basic of R</a></li><li class="chapter-item expanded "><a href="t2_func.html"><strong aria-hidden="true">2.</strong> R Functions</a></li><li class="chapter-item expanded "><a href="t3_gramar.html"><strong aria-hidden="true">3.</strong> The Grammar of Graphics</a></li><li class="chapter-item expanded "><a href="t4_basicViz.html"><strong aria-hidden="true">4.</strong> Basic Data Visualization in R</a></li><li class="chapter-item expanded "><a href="t5_transData.html"><strong aria-hidden="true">5.</strong> Data Transformation with dplyr</a></li><li class="chapter-item expanded "><a href="t6_dataWrangling_trt.html"><strong aria-hidden="true">6.</strong> Data Wrangling with tibbles, readr and tidyr</a></li><li class="chapter-item expanded "><a href="t7_dataWrangling_sf.html"><strong aria-hidden="true">7.</strong> (optional) Data Wrangling with stringr, forcats</a></li><li class="chapter-item expanded "><a href="t8_relational.html"><strong aria-hidden="true">8.</strong> Visualizing Relational Data</a></li><li class="chapter-item expanded "><a href="t9_shiny.html"><strong aria-hidden="true">9.</strong> Introduction to Shiny</a></li><li class="chapter-item expanded "><a href="t10_eda.html"><strong aria-hidden="true">10.</strong> Exploratory Data Analysis and More Data Visualization</a></li><li class="chapter-item expanded "><a href="t11_additional.html"><strong aria-hidden="true">11.</strong> R Modeling Workshop</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -3256,10 +3256,458 @@ flights %&gt;%
 <h4 id="references-5"><a class="header" href="#references-5">References</a></h4>
 <p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="optional-data-wrangling-with-stringr-forcats"><a class="header" href="#optional-data-wrangling-with-stringr-forcats">(optional) Data Wrangling with stringr, forcats</a></h1>
+<p>Data Wrangling with <code>stringr</code> and <code>forcats</code> [<a href="https://zhenyuanlu.com/slides/t07DataWrg_sf.pdf">slides/code</a>]</p>
+<h2 id="environment"><a class="header" href="#environment">Environment</a></h2>
+<ul>
+<li>R language</li>
+<li>R studio</li>
+</ul>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<pre><code class="language-r">install.pacages(&quot;tidyverse&quot;)
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="visualizing-relational-data"><a class="header" href="#visualizing-relational-data">Visualizing Relational Data</a></h1>
+<h2 id="introduction-1"><a class="header" href="#introduction-1">introduction</a></h2>
+<p>It’s rare that a data analysis involves only a single table of data. Typically you have many tables of data, and you must combine them to answer the questions that you’re interested in. Collectively, multiple tables of data are called relational data because it is the relations, not just the individual datasets, that are important.</p>
+<p>To work with relational data you need verbs that work with pairs of tables. There are two most common families of verbs designed to work with relational data:</p>
+<ul>
+<li>
+<p>Mutating joins, which add new variables to one data frame from matching observations in another.</p>
+</li>
+<li>
+<p>Filtering joins, which filter observations from one data frame based on whether or not they match an observation in the other table.</p>
+</li>
+</ul>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<pre><code class="language-r">library(tidyverse)
+library(nycflights13)
+</code></pre>
+<h2 id="nycflights13"><a class="header" href="#nycflights13">nycflights13</a></h2>
+<p><strong>airlines</strong> lets you look up the full carrier name from its abbreviated code:</p>
+<pre><code class="language-r">head(airlines)
+</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   carrier name
+##   &lt;chr&gt;   &lt;chr&gt;
+## 1 9E      Endeavor Air Inc.
+## 2 AA      American Airlines Inc.
+## 3 AS      Alaska Airlines Inc.
+## 4 B6      JetBlue Airways
+## 5 DL      Delta Air Lines Inc.
+## 6 EV      ExpressJet Airlines Inc.
+</code></pre>
+<p><strong>airports</strong> gives information about each airport, identified by the faa airport code:</p>
+<pre><code class="language-r">airports
+</code></pre>
+<pre><code>## # A tibble: 1,458 × 8
+##    faa   name                             lat    lon   alt    tz dst   tzone
+##    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 04G   Lansdowne Airport               41.1  -80.6  1044    -5 A     America/…
+##  2 06A   Moton Field Municipal Airport   32.5  -85.7   264    -6 A     America/…
+##  3 06C   Schaumburg Regional             42.0  -88.1   801    -6 A     America/…
+##  4 06N   Randall Airport                 41.4  -74.4   523    -5 A     America/…
+##  5 09J   Jekyll Island Airport           31.1  -81.4    11    -5 A     America/…
+##  6 0A9   Elizabethton Municipal Airport  36.4  -82.2  1593    -5 A     America/…
+##  7 0G6   Williams County Airport         41.5  -84.5   730    -5 A     America/…
+##  8 0G7   Finger Lakes Regional Airport   42.9  -76.8   492    -5 A     America/…
+##  9 0P2   Shoestring Aviation Airfield    39.8  -76.6  1000    -5 U     America/…
+## 10 0S9   Jefferson County Intl           48.1 -123.    108    -8 A     America/…
+## # … with 1,448 more rows
+</code></pre>
+<p><strong>planes</strong> gives information about each plane, identified by its tailnum:</p>
+<pre><code class="language-r">planes
+</code></pre>
+<pre><code>## # A tibble: 3,322 × 9
+##    tailnum  year type              manufacturer model engines seats speed engine
+##    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;
+##  1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+##  2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+##  6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+## 10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+## # … with 3,312 more rows
+</code></pre>
+<p><strong>weather</strong> gives the weather at each NYC airport for each hour:</p>
+<pre><code class="language-r">weather
+</code></pre>
+<pre><code>## # A tibble: 26,115 × 15
+##    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4
+##  2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06
+##  3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5
+##  4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7
+##  5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7
+##  6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5
+##  7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0
+##  8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4
+##  9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0
+## 10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8
+## # … with 26,105 more rows, and 5 more variables: wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;,
+## #   pressure &lt;dbl&gt;, visib &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h2 id="nycflights13-entity-relationship-diagram"><a class="header" href="#nycflights13-entity-relationship-diagram">nycflights13 Entity Relationship Diagram</a></h2>
+<p>One way to show the relationships between the different tables is with a drawing: <strong>If you have taken database management, you would be familiar with.</strong></p>
+<p align="center">
+  <img src="images/t8/erd.png" style="width:80%"/>
+</p>
+Hadley Wickham, Garrett Grolemund. R For Data Science.
+<p>For <strong>nycflights13</strong>:</p>
+<ul>
+<li>
+<p>flights connects to planes via a single variable, tailnum.</p>
+</li>
+<li>
+<p>flights connects to airlines through the carrier variable.</p>
+</li>
+<li>
+<p>flights connects to airports in two ways: via the origin and dest variables.</p>
+</li>
+<li>
+<p>flights connects to weather via origin (the location), and year, month, day, and hour (the time).</p>
+</li>
+</ul>
+<h2 id="key-for-relational-data-table"><a class="header" href="#key-for-relational-data-table">Key for relational data table</a></h2>
+<p>There are two types of keys:</p>
+<ul>
+<li>
+<p>A primary key uniquely identifies an observation in its own table.</p>
+</li>
+<li>
+<p>A foreign key uniquely identifies an observation in another table.</p>
+</li>
+</ul>
+<h3 id="primary-key-pk"><a class="header" href="#primary-key-pk">Primary key (PK)</a></h3>
+<p>For example, planes$tailnum is a primary key because it uniquely identifies each plane in the planes table.</p>
+<pre><code>planes
+</code></pre>
+<pre><code>## # A tibble: 3,322 × 9
+##    tailnum  year type              manufacturer model engines seats speed engine
+##    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;
+##  1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+##  2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+##  6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+##  9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+## 10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+## # … with 3,312 more rows
+</code></pre>
+<p>If we would likt to find one plane with tailnumber &quot;<strong>N110UW</strong>&quot;</p>
+<pre><code class="language-r">planes %&gt;%
+  filter(tailnum==&quot;N110UW&quot;)
+</code></pre>
+<pre><code>## # A tibble: 1 × 9
+##   tailnum  year type               manufacturer model engines seats speed engine
+##   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;
+## 1 N110UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
+</code></pre>
+<p>Of course, the PK can be a combination of variables:<code>c(year, month, day, hour, minute, origin)</code></p>
+<pre><code class="language-r">flights %&gt;%
+  filter(year==2013, month==1, day==5, hour==5, minute==40, origin==&quot;JFK&quot;)
+</code></pre>
+<pre><code>## # A tibble: 1 × 19
+##    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+## 1  2013     1     5      537            540        -3      831            850
+## # … with 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
+## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
+## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+</code></pre>
+<h3 id="foreign-key"><a class="header" href="#foreign-key">Foreign key</a></h3>
+<p>For example, flights$tailnum is a foreign key because it appears in the flights table where it matches each flight to a unique plane in the plane talbe. Which means in the table flights, the tailnum is a foreign key not a PK; but in the table plane, the tailnum is a PK</p>
+<pre><code class="language-r">flights %&gt;%
+  filter(tailnum==&quot;N110UW&quot;)
+</code></pre>
+<pre><code>## # A tibble: 40 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1    10      620            630       -10      855            831
+##  2  2013    10     6      959            959         0     1214           1207
+##  3  2013    10     9     1639           1540        59     1830           1742
+##  4  2013    10    24     1600           1550        10     1756           1752
+##  5  2013    11     6     1546           1544         2     1741           1750
+##  6  2013    11     9     1458           1500        -2     1649           1656
+##  7  2013    11    10      818            825        -7     1007           1029
+##  8  2013    11    13     1540           1544        -4     1738           1750
+##  9  2013    11    21     1222           1200        22     1413           1359
+## 10  2013    11    26     1603           1544        19     1842           1750
+...
+</code></pre>
+<h2 id="mutate-join"><a class="header" href="#mutate-join">Mutate Join</a></h2>
+<h4 id="data-table"><a class="header" href="#data-table">Data table</a></h4>
+<p align="center">
+  <img src="images/t8/xy.png" style="width:50%"/>
+</p>
+<pre><code class="language-r">x &lt;- tribble(
+  ~key, ~val_x,
+  1, &quot;x1&quot;,
+  2, &quot;x2&quot;,
+  3, &quot;x3&quot;
+)
+y &lt;- tribble(
+  ~key, ~val_y,
+  1, &quot;y1&quot;,
+  2, &quot;y2&quot;,
+  4, &quot;y3&quot;
+)
+</code></pre>
+<h3 id="inner-join"><a class="header" href="#inner-join">Inner join</a></h3>
+<p align="center">
+  <img src="images/t8/inner.png" style="width:80%"/>
+</p>
+<p>Base R functoin:</p>
+<pre><code class="language-r">merge(x, y, by=&quot;key&quot;)
+
+#or
+x %&gt;%
+  merge(y, by=&quot;key&quot;)
+</code></pre>
+<p>dplyr <code>inner_join()</code> function:</p>
+<pre><code class="language-r">inner_join(x, y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+</code></pre>
+<pre><code class="language-r">#or
+x %&gt;%
+  inner_join(y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+</code></pre>
+<h4 id="if-the-keys-are-different"><a class="header" href="#if-the-keys-are-different">If the keys are different</a></h4>
+<h4 id="data"><a class="header" href="#data">Data</a></h4>
+<pre><code class="language-r">x &lt;- tribble(
+  ~key, ~val_x,
+  1, &quot;x1&quot;,
+  2, &quot;x2&quot;,
+  3, &quot;x3&quot;
+)
+y1 &lt;- tribble(
+  ~key1, ~val_y,
+  1, &quot;y1&quot;,
+  2, &quot;y2&quot;,
+  4, &quot;y3&quot;
+)
+</code></pre>
+<p>Base function:</p>
+<pre><code class="language-r">merge(x, y1, by.x=&quot;key&quot;, by.y=&quot;key1&quot;)
+</code></pre>
+<p>dplyr function:</p>
+<pre><code class="language-r">inner_join(x, y1, by=c(&quot;key&quot;=&quot;key1&quot;))
+</code></pre>
+<h3 id="left-join"><a class="header" href="#left-join">Left join</a></h3>
+<p align="center">
+  <img src="images/t8/left.png" style="width:80%"/>
+</p>
+<p>Base R functoin:</p>
+<pre><code class="language-r">merge(x, y, by=&quot;key&quot;, all.x=TRUE)
+#or
+x %&gt;%
+  merge(y, by=&quot;key&quot;, all.x=TRUE)
+</code></pre>
+<p>dplyr <code>left_join()</code> function:</p>
+<pre><code class="language-r">left_join(x, y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+## 3     3 x3    &lt;NA&gt;
+</code></pre>
+<pre><code class="language-r">#or
+x %&gt;%
+  left_join(y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+## 3     3 x3    &lt;NA&gt;
+</code></pre>
+<h3 id="right-join"><a class="header" href="#right-join">Right join</a></h3>
+<p align="center">
+  <img src="images/t8/right.png" style="width:80%"/>
+</p>
+<p>Base R functoin:</p>
+<pre><code class="language-r">merge(x, y, by=&quot;key&quot;, all.y=TRUE)
+#or
+x %&gt;%
+  merge(y, by=&quot;key&quot;, all.y=TRUE)
+</code></pre>
+<p>dplyr <code>right_join()</code> function:</p>
+<pre><code class="language-r">right_join(x, y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+## 3     4 &lt;NA&gt;  y3
+</code></pre>
+<pre><code class="language-r">#or
+x %&gt;%
+  right_join(y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+## 3     4 &lt;NA&gt;  y3
+</code></pre>
+<h3 id="full-join"><a class="header" href="#full-join">Full join</a></h3>
+<p align="center">
+  <img src="images/t8/full.png" style="width:80%"/>
+</p>
+<p>Base R functoin:</p>
+<pre><code class="language-r">merge(x, y, by=&quot;key&quot;,
+      all.x=TRUE,
+      all.y = TRUE)
+#or
+x %&gt;%
+  merge(y, by=&quot;key&quot;,
+        all.x=TRUE,
+        all.y = TRUE)
+</code></pre>
+<p>dplyr <code>full_join()</code> function:</p>
+<pre><code class="language-r">full_join(x, y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+## 3     3 x3    &lt;NA&gt;
+## 4     4 &lt;NA&gt;  y3
+</code></pre>
+<pre><code class="language-r">#or
+x %&gt;%
+  full_join(y, by=&quot;key&quot;)
+</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1
+## 2     2 x2    y2
+## 3     3 x3    &lt;NA&gt;
+## 4     4 &lt;NA&gt;  y3
+</code></pre>
+<h2 id="filtering-joins"><a class="header" href="#filtering-joins">Filtering Joins</a></h2>
+<ul>
+<li>semi_join(x, y) keeps all observations in x that have a match in y.</li>
+<li>anti_join(x, y) drops all observations in x that have a match in y.</li>
+</ul>
+<h3 id="semi-join"><a class="header" href="#semi-join">Semi-join</a></h3>
+<p align="center">
+  <img src="images/t8/semi.png" style="width:80%"/>
+</p>
+<p><code>semi_join(x, y)</code> keeps all observations in x that have a match in y.</p>
+<h3 id="anti-join"><a class="header" href="#anti-join">Anti-join</a></h3>
+<p align="center">
+  <img src="images/t8/anti.png" style="width:80%"/>
+</p>
+<p><code>anti_join(x, y)</code> drops all observations in x that have a match in y.</p>
+<h4 id="references-6"><a class="header" href="#references-6">References</a></h4>
+<p>[1] <a href="https://r4ds.had.co.nz/">Hadley Wickham, Garrett Grolemund. R For Data Science.</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-to-shiny"><a class="header" href="#introduction-to-shiny">Introduction to Shiny</a></h1>
+<p><img src="https://img.shields.io/badge/R-shiny-blue?style=flat&amp;logo=appveyor&amp;logo=python&amp;logoColor=informational?style=flat" alt="R" /></p>
+<h2 id="r-shiny-topics"><a class="header" href="#r-shiny-topics">R <code>shiny</code> Topics</a></h2>
+<ul>
+<li>Introduction to <code>shiny</code> interactive visualization web app [<a href="https://zhenyuanlu.com/slides/t09IntroToShiny.pdf">slides</a>]</li>
+<li><code>shiny</code> reactive output [<a href="https://zhenyuanlu.com/slides/t10ShinyApp.pdf">slides/code</a>]</li>
+</ul>
+<h3 id="environment-1"><a class="header" href="#environment-1">Environment</a></h3>
+<ul>
+<li>R language</li>
+<li>R studio</li>
+</ul>
+<h3 id="installation-of-shiny"><a class="header" href="#installation-of-shiny">Installation of <code>shiny</code></a></h3>
+<pre><code class="language-r">install.pacages(&quot;shiny&quot;)
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="exploratory-data-analysis-and-more-data-visualization"><a class="header" href="#exploratory-data-analysis-and-more-data-visualization">Exploratory Data Analysis and More Data Visualization</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="additional-r-workshop"><a class="header" href="#additional-r-workshop">Additional R Workshop</a></h1>
+<p align="center">
+  <img src="images/t10/charts.png" style="width:80%"/>
+</p>
+<h2 id="materials"><a class="header" href="#materials">Materials</a></h2>
+<p>EDA and Advanced Visualization [<a href="https://zhenyuanlu.com/slides/t11AppDataViz.pdf">slides/code</a>]</p>
+<h2 id="eda-topics"><a class="header" href="#eda-topics">EDA Topics</a></h2>
+<p align="center">
+  <img src="images/t10/chartList.png" style="width:80%"/>
+</p>
+<h2 id="advanced-visualization-topics"><a class="header" href="#advanced-visualization-topics">Advanced Visualization Topics</a></h2>
+<ul>
+<li>Visualization by PCA</li>
+<li>Spatial Visualization</li>
+<li>Network Visualization</li>
+<li>Animated Visualization</li>
+<li>Interactive Visualization</li>
+<li>Polishing Procedure</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="r-modeling-workshop"><a class="header" href="#r-modeling-workshop">R Modeling Workshop</a></h1>
+<p>R Modeling Workshop. [<a href="https://github.com/zhenyuanlu/ML-workshop-IE6600">Github (included the slides and R code):</a>]</p>
+<p><img src="https://img.shields.io/badge/R-4.1.2-blue?style=flat&amp;logo=appveyor&amp;logo=python&amp;logoColor=informational?style=flat" alt="R" />
+<img src="https://img.shields.io/badge/Keras-2.8.0-yellowgreen?style=flat&amp;logo=Keras&amp;logoColor=white" alt="Keras" /></p>
+<h2 id="workshop-topics"><a class="header" href="#workshop-topics">Workshop Topics</a></h2>
+<p>The purpose of the workshop is to make students familiar with how to implement machine learning models by using R.</p>
+<ul>
+<li>Introduction to neural network and deep learning</li>
+<li>Principle Components Analysis (PCA) for Visualization</li>
+<li>k nearest neighbours (KNN) (Optional)</li>
+<li>Logistic Regression</li>
+</ul>
+<!-- ## Directory structure -->
+<!-- ```text
+ML-workshop-IE6600/
+    code/
+        data/
+          kNN_wbcd.csv
+          NN_data.csv
+        kNN.Rmd
+        NN_keras.Rmd
+        VizPCA.Rmd
+        VizPCA.R
+    slides/
+        kNN_workshop.pdf
+        NN_workshop.pdf
+        VizPCA_workshop.pdf
+    readme.md
+``` -->
+<h3 id="environment-2"><a class="header" href="#environment-2">Environment</a></h3>
+<ul>
+<li>R language</li>
+<li>R studio</li>
+</ul>
+<h3 id="installation-of-keras-and-tensorflow-in-r"><a class="header" href="#installation-of-keras-and-tensorflow-in-r">Installation of Keras and Tensorflow in R</a></h3>
+<p>The Keras R interface uses the TensorFlow backend engine by default.</p>
+<pre><code class="language-r">install.packages(&quot;keras&quot;)
+</code></pre>
+<p>or install the development version with:</p>
+<pre><code class="language-r">devtools::install_github(&quot;rstudio/keras&quot;)
+</code></pre>
+<p>then</p>
+<pre><code class="language-r">library(keras)
+install_keras()
+</code></pre>
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a></p>
+<p><a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a></p>
+<p>The coding examples in class are released under the MIT license.</p>
 
                     </main>
 
