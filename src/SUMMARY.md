@@ -13,4 +13,4 @@
 - [Visualizing Relational Data](./t8_relational.md)
 - [Introduction to Shiny](./t9_shiny.md)
 - [Exploratory Data Analysis and More Data Visualization](./t10_eda.md)
-- [Additional R Workshop](./additional.md)
+- [R Modeling Workshop](./t11_additional.md)

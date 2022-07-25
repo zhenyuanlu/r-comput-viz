@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Additional R Workshop - Computation and Visualization in R</title>
+        <title>R Modeling Workshop - Computation and Visualization in R</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Home</a></li><li class="chapter-item expanded affix "><a href="dis.html">Disclaimer</a></li><li class="chapter-item expanded affix "><a href="faq.html">FAQ for the class</a></li><li class="chapter-item expanded "><a href="t1_basicR.html"><strong aria-hidden="true">1.</strong> Basic of R</a></li><li class="chapter-item expanded "><a href="t2_func.html"><strong aria-hidden="true">2.</strong> R Functions</a></li><li class="chapter-item expanded "><a href="t3_gramar.html"><strong aria-hidden="true">3.</strong> The Grammar of Graphics</a></li><li class="chapter-item expanded "><a href="t4_basicViz.html"><strong aria-hidden="true">4.</strong> Basic Data Visualization in R</a></li><li class="chapter-item expanded "><a href="t5_transData.html"><strong aria-hidden="true">5.</strong> Data Transformation with dplyr</a></li><li class="chapter-item expanded "><a href="t6_dataWrangling_trt.html"><strong aria-hidden="true">6.</strong> Data Wrangling with tibbles, readr and tidyr</a></li><li class="chapter-item expanded "><a href="t7_dataWrangling_sf.html"><strong aria-hidden="true">7.</strong> (optional) Data Wrangling with stringr, forcats</a></li><li class="chapter-item expanded "><a href="t8_relational.html"><strong aria-hidden="true">8.</strong> Visualizing Relational Data</a></li><li class="chapter-item expanded "><a href="t9_shiny.html"><strong aria-hidden="true">9.</strong> Introduction to Shiny</a></li><li class="chapter-item expanded "><a href="t10_eda.html"><strong aria-hidden="true">10.</strong> Exploratory Data Analysis and More Data Visualization</a></li><li class="chapter-item expanded "><a href="additional.html" class="active"><strong aria-hidden="true">11.</strong> Additional R Workshop</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Home</a></li><li class="chapter-item expanded affix "><a href="dis.html">Disclaimer</a></li><li class="chapter-item expanded affix "><a href="faq.html">FAQ for the class</a></li><li class="chapter-item expanded "><a href="t1_basicR.html"><strong aria-hidden="true">1.</strong> Basic of R</a></li><li class="chapter-item expanded "><a href="t2_func.html"><strong aria-hidden="true">2.</strong> R Functions</a></li><li class="chapter-item expanded "><a href="t3_gramar.html"><strong aria-hidden="true">3.</strong> The Grammar of Graphics</a></li><li class="chapter-item expanded "><a href="t4_basicViz.html"><strong aria-hidden="true">4.</strong> Basic Data Visualization in R</a></li><li class="chapter-item expanded "><a href="t5_transData.html"><strong aria-hidden="true">5.</strong> Data Transformation with dplyr</a></li><li class="chapter-item expanded "><a href="t6_dataWrangling_trt.html"><strong aria-hidden="true">6.</strong> Data Wrangling with tibbles, readr and tidyr</a></li><li class="chapter-item expanded "><a href="t7_dataWrangling_sf.html"><strong aria-hidden="true">7.</strong> (optional) Data Wrangling with stringr, forcats</a></li><li class="chapter-item expanded "><a href="t8_relational.html"><strong aria-hidden="true">8.</strong> Visualizing Relational Data</a></li><li class="chapter-item expanded "><a href="t9_shiny.html"><strong aria-hidden="true">9.</strong> Introduction to Shiny</a></li><li class="chapter-item expanded "><a href="t10_eda.html"><strong aria-hidden="true">10.</strong> Exploratory Data Analysis and More Data Visualization</a></li><li class="chapter-item expanded "><a href="t11_additional.html" class="active"><strong aria-hidden="true">11.</strong> R Modeling Workshop</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,7 +147,54 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="additional-r-workshop"><a class="header" href="#additional-r-workshop">Additional R Workshop</a></h1>
+                        <h1 id="r-modeling-workshop"><a class="header" href="#r-modeling-workshop">R Modeling Workshop</a></h1>
+<p>R Modeling Workshop. [<a href="https://github.com/zhenyuanlu/ML-workshop-IE6600">Github (included the slides and R code):</a>]</p>
+<p><img src="https://img.shields.io/badge/R-4.1.2-blue?style=flat&amp;logo=appveyor&amp;logo=python&amp;logoColor=informational?style=flat" alt="R" />
+<img src="https://img.shields.io/badge/Keras-2.8.0-yellowgreen?style=flat&amp;logo=Keras&amp;logoColor=white" alt="Keras" /></p>
+<h2 id="workshop-topics"><a class="header" href="#workshop-topics">Workshop Topics</a></h2>
+<p>The purpose of the workshop is to make students familiar with how to implement machine learning models by using R.</p>
+<ul>
+<li>Introduction to neural network and deep learning</li>
+<li>Principle Components Analysis (PCA) for Visualization</li>
+<li>k nearest neighbours (KNN) (Optional)</li>
+<li>Logistic Regression</li>
+</ul>
+<!-- ## Directory structure -->
+<!-- ```text
+ML-workshop-IE6600/
+    code/
+        data/
+          kNN_wbcd.csv
+          NN_data.csv
+        kNN.Rmd
+        NN_keras.Rmd
+        VizPCA.Rmd
+        VizPCA.R
+    slides/
+        kNN_workshop.pdf
+        NN_workshop.pdf
+        VizPCA_workshop.pdf
+    readme.md
+``` -->
+<h3 id="environment"><a class="header" href="#environment">Environment</a></h3>
+<ul>
+<li>R language</li>
+<li>R studio</li>
+</ul>
+<h3 id="installation-of-keras-and-tensorflow-in-r"><a class="header" href="#installation-of-keras-and-tensorflow-in-r">Installation of Keras and Tensorflow in R</a></h3>
+<p>The Keras R interface uses the TensorFlow backend engine by default.</p>
+<pre><code class="language-r">install.packages(&quot;keras&quot;)
+</code></pre>
+<p>or install the development version with:</p>
+<pre><code class="language-r">devtools::install_github(&quot;rstudio/keras&quot;)
+</code></pre>
+<p>then</p>
+<pre><code class="language-r">library(keras)
+install_keras()
+</code></pre>
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a></p>
+<p><a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a></p>
+<p>The coding examples in class are released under the MIT license.</p>
 
                     </main>
 
