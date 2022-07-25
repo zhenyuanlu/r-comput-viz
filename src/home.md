@@ -166,3 +166,17 @@ IE6600 covers basic of the R, and R Shiny for data preprocessing, and visualizat
     </tr>
   </tbody>
 </table>
+
+
+</br>
+</br>
+
+```
+@book{lu2022visualization,
+  title   = "The Notes of Visualization Tutorial in R",
+  author  = "Lu, Zhenyuan",
+  year    = "2022",
+  publisher = "zhenyuanlu.github.io",
+  url     = "https://zhenyuanlu.com/r-comput-viz-notes/"
+}
+```
