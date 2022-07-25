@@ -150,33 +150,22 @@ IE6600 covers basic of the R, and R Shiny for data preprocessing, and visualizat
     </tr>
 <!-- =============================== Topic 8 ================================ -->
     <tr>
-      <td><a href="t8_shiny.md">Introduction to Shiny</a></td>
-      <td rowspan="1">📑</td>
-      <td rowspan="1">
+      <td rowspan="2"><a href="t8_shiny.md">Introduction to Shiny</a></td>
+      <td rowspan="1"><a href="https://zhenyuanlu.com/slides/t09IntroToShiny.pdf">📑</td>
+      <td rowspan="2">
         <b>R Shiny</b> <a href="https://shiny.rstudio.com/tutorial/">Shiny tutorial</a>
       </td>
+    </tr>
+    <tr>
+      <td><a href="https://zhenyuanlu.com/slides/t10ShinyApp.pdf">📑</a></td>
     </tr>
 <!-- =============================== Topic 9 ================================ -->
     <tr>
       <td><a href="t9_eda.md">Exploratory data analysis and more data visualization</a></td>
-      <td rowspan="1">📑</td>
+      <td rowspan="1"><a href="https://zhenyuanlu.com/slides/t11AppDataViz.pdf">📑</td>
       <td rowspan="1">
         <b>R4DS </b> <a href="https://r4ds.had.co.nz/exploratory-data-analysis.html">Exploratory Data Analysis</a>
       </td>
     </tr>
   </tbody>
 </table>
-
-
-</br>
-</br>
-
-```
-@book{lu2022visualization,
-  title   = "The Notes of Visualization Tutorial in R",
-  author  = "Lu, Zhenyuan",
-  year    = "2022",
-  publisher = "zhenyuanlu.github.io",
-  url     = "https://zhenyuanlu.com/r-comput-viz-notes/"
-}
-```
