@@ -182,7 +182,7 @@ ggplot(data = mpg) +
 
 >**Tip**:
 >
->If you wanted to use `facet_wrap` to do the above plot.
+>If you want to use `facet_wrap` to do the above plot.
 >```r
 >ggplot(data = mpg) +
 >  geom_point(mapping = aes(x = displ, y = hwy)) +
