@@ -67,7 +67,7 @@ install_keras()
 
 ```
 @book{lu2022visualization,
-  title   = "The Notes of Visualization Tutorial in R",
+  title   = "Data Visualization Tutorial in R",
   author  = "Lu, Zhenyuan",
   year    = "2022",
   publisher = "zhenyuanlu.github.io",
