@@ -7,7 +7,7 @@
   Creator: Charles Joseph Minard
 </p> -->
 
-**Instructor/Author:** Zhenyuan Lu
+**Instructor/Author:** [Zhenyuan Lu](https://zhenyuanlu.com/)
 
 **Version:** 0.1.0
 
@@ -21,7 +21,7 @@
 
 
 
-- [Summer 22](https://zhenyuanlu.com/ie6600-bos-su22/), [Spring 22](https://zhenyuanlu.com/ie6600-sea-sp22/), [Fall 21](https://zhenyuanlu.com/ie6600-bos-fa21/), [Summer 21](https://zhenyuanlu.com/ie6600-bos-sm21/), [Spring 21](https://zhenyuanlu.com/ie6600-sea-sp21/), [Fall 20](https://zhenyuanlu.com/ie6600-bos-fa20/), Spring 20, Spring 19
+- [Fall 22](https://zhenyuanlu.com/ie6600-vbc-fa22/), [Summer 22](https://zhenyuanlu.com/ie6600-bos-su22/), [Spring 22](https://zhenyuanlu.com/ie6600-sea-sp22/), [Fall 21](https://zhenyuanlu.com/ie6600-bos-fa21/), [Summer 21](https://zhenyuanlu.com/ie6600-bos-sm21/), [Spring 21](https://zhenyuanlu.com/ie6600-sea-sp21/), [Fall 20](https://zhenyuanlu.com/ie6600-bos-fa20/), Spring 20, Spring 19
 
 
 ## Description
