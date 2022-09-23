@@ -1,7 +1,5 @@
 # R Functions
 
-
-
 ## Functions
 
 R has a large collection of built-in functions that are called like this:
