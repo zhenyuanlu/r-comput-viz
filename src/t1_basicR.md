@@ -1,12 +1,14 @@
 # Basic of R
 
+## Installation of R
+
+
+
 <p align="center">
   <img src="https://cran.r-project.org/Rlogo.svg" style="width: 15%"/>
   <img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" style="width: 30%"/>
   <!-- <img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/shiny.png" style="width: 10%"/> -->
 </p>
-
-## Installation of R
 
 After you click the following link: <https://cran.r-project.org/>
 

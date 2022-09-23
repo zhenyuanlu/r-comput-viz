@@ -1,4 +1,4 @@
-# (optional) Data Wrangling with stringr, forcats
+# Data Wrangling with stringr, forcats (optional) 
 
 Data Wrangling with `stringr` and `forcats` [[slides/code](https://zhenyuanlu.com/slides/t07DataWrg_sf.pdf)]
 
