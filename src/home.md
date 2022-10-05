@@ -6,10 +6,13 @@
 <p align="center" style="font-size: 0.775em">
   Creator: Charles Joseph Minard
 </p> -->
+<meta name="citation_title" content="Data Visualization Tutorial in R">
+<meta name="citation_author" content="Lu, Zhenyuan">
+<meta name="citation_publication_date" content="2022">
 
 **Instructor/Author:** [Zhenyuan Lu](https://zhenyuanlu.com/)
 
-**Version:** 0.1.0
+**Version:** 1.0.0
 
 **This is the course notes** for IE6600 Computation and Visualization course, which has covered the following semesters:
 
