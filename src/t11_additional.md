@@ -71,6 +71,6 @@ install_keras()
   author  = "Lu, Zhenyuan",
   year    = "2022",
   publisher = "zhenyuanlu.github.io",
-  url     = "https://zhenyuanlu.com/r-comput-viz-notes/"
+  url     = "https://zhenyuanlu.com/r-comput-viz/"
 }
 ```

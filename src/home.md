@@ -14,6 +14,8 @@
 
 **Version:** 1.0.0
 
+[![DOI](https://zenodo.org/badge/482409791.svg)](https://zenodo.org/badge/latestdoi/482409791)
+
 **This is the course notes** for IE6600 Computation and Visualization course, which has covered the following semesters:
 
 
