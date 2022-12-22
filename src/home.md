@@ -12,7 +12,7 @@
 
 **Instructor/Author:** [Zhenyuan Lu](https://zhenyuanlu.com/)
 
-**Version:** 1.0.0
+**Version:** 1.0.1
 
 [![DOI](https://zenodo.org/badge/482409791.svg)](https://zenodo.org/badge/latestdoi/482409791)
 
@@ -26,7 +26,7 @@
 
 
 
-- [Fall 22](https://zhenyuanlu.com/ie6600-vbc-fa22/), [Summer 22](https://zhenyuanlu.com/ie6600-bos-su22/), [Spring 22](https://zhenyuanlu.com/ie6600-sea-sp22/), [Fall 21](https://zhenyuanlu.com/ie6600-bos-fa21/), [Summer 21](https://zhenyuanlu.com/ie6600-bos-sm21/), [Spring 21](https://zhenyuanlu.com/ie6600-sea-sp21/), [Fall 20](https://zhenyuanlu.com/ie6600-bos-fa20/), Spring 20, Spring 19
+- [Spring 23](https://zhenyuanlu.com/courses/ie6600-sea-sp23/), [Fall 22](https://zhenyuanlu.com/ie6600-vbc-fa22/), [Summer 22](https://zhenyuanlu.com/ie6600-bos-su22/), [Spring 22](https://zhenyuanlu.com/ie6600-sea-sp22/), [Fall 21](https://zhenyuanlu.com/ie6600-bos-fa21/), [Summer 21](https://zhenyuanlu.com/ie6600-bos-sm21/), [Spring 21](https://zhenyuanlu.com/ie6600-sea-sp21/), [Fall 20](https://zhenyuanlu.com/ie6600-bos-fa20/), Spring 20, Spring 19
 
 
 ## Description
