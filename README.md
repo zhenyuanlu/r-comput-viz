@@ -18,6 +18,8 @@ This notebook is built on [mdBook](https://rust-lang.github.io/mdBook/).
 5. The new book will be in the folder `Book`, which can be deployed to the gh-pages. 
 
 ## License and Reference
+Citation: 
+
 [![DOI](https://zenodo.org/badge/482409791.svg)](https://zenodo.org/badge/latestdoi/482409791)
 
 This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/)
